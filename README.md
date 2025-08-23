@@ -1,1 +1,3 @@
-# twilight-imperium-factions
+# Twilight Imperium 4th Edition Faction Guide
+
+An interactive web-based presentation to help new players choose their faction before playing Twilight Imperium 4th Edition.
