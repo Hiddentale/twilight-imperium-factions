@@ -440,7 +440,19 @@
             }
 
             .navigation {
+                position: fixed;
                 bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.9);
+                padding: 15px 20px;
+                border-radius: 25px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                width: calc(100% - 30px);
+                max-width: 400px;
                 gap: 10px;
                 flex-wrap: wrap;
                 justify-content: center;
