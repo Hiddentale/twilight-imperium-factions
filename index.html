@@ -314,35 +314,270 @@
             font-size: 1.3rem;
         }
 
-        /* Responsive design */
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .faction-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .overview-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
+            /* Overall layout adjustments */
             .slide {
-                padding: 20px;
+                padding: 10px;
+            }
+            
+            .slide-container {
+                padding: 10px;
+            }
+
+            /* Header adjustments */
+            .header {
+                padding: 8px 10px;
+                flex-direction: row; /* Keep header compact */
+                gap: 10px;
+                justify-content: space-between;
+            }
+            
+            .header h1 {
+                font-size: 1rem;
+            }
+            
+            .slide-counter {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+
+            /* Faction header mobile layout */
+            .faction-header {
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .faction-image {
+                width: 80px; /* Even smaller on mobile */
+                height: 80px;
+                margin-bottom: 10px;
             }
             
             .faction-name {
-                font-size: 2rem;
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+            
+            .difficulty-badge {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+                margin-bottom: 8px;
+            }
+            
+            .faction-identity {
+                font-size: 0.85rem;
+                line-height: 1.3;
+            }
+
+            /* Content sections - much more compact */
+            .content-section {
+                padding: 10px;
+                margin-bottom: 8px;
+                border-radius: 10px;
+            }
+            
+            .content-section h3 {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            
+            .content-section p, .content-section ul {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            .content-section li {
+                margin-bottom: 4px;
+                padding-left: 15px;
+            }
+
+            /* Intro slide mobile */
+            .intro-slide {
+                padding: 20px 15px;
+            }
+            
+            .intro-slide h2 {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+            
+            .intro-slide p {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            /* Overview cards - more compact */
+            .overview-card {
+                padding: 15px;
+            }
+            
+            .overview-card h4 {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .overview-card p {
+                font-size: 0.8rem;
+            }
+
+            .navigation {
+                bottom: 15px;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+                min-height: 40px;
+            }
+            
+            .slide-indicators {
+                gap: 10px;
+                margin: 0 10px;
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 8px;
+            }
+            
+            .indicator {
+                width: 14px;
+                height: 14px;
+            }
+
+            /* Grid adjustments - tighter spacing */
+            .content-grid {
+                gap: 10px;
+                margin-top: 15px;
+            }
+            
+            .strengths-weaknesses {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra small screens - very compact */
+            .faction-name {
+                font-size: 1.2rem;
+            }
+            
+            .faction-identity {
+                font-size: 0.8rem;
+                line-height: 1.2;
+            }
+            
+            .faction-image {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .content-section {
+                padding: 8px;
+                margin-bottom: 6px;
+            }
+            
+            .content-section h3 {
+                font-size: 0.85rem;
+                margin-bottom: 5px;
+            }
+            
+            .content-section p, .content-section ul {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+            
+            .content-section li {
+                margin-bottom: 2px;
+                padding-left: 12px;
+            }
+            
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                min-height: 36px;
+            }
+            
+            .header {
+                padding: 6px 8px;
+            }
+            
+            .header h1 {
+                font-size: 0.9rem;
+            }
+            
+            .slide-counter {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+            
+            .intro-slide h2 {
+                font-size: 1.4rem;
+            }
+            
+            .intro-slide p {
+                font-size: 0.85rem;
+            }
+            
+            .overview-card {
+                padding: 12px;
+            }
+            
+            .overview-card h4 {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            
+            .overview-card p {
+                font-size: 0.75rem;
+            }
+            
+            /* Even tighter spacing */
+            .content-grid {
+                gap: 8px;
+                margin-top: 12px;
+            }
+            
+            .strengths-weaknesses {
+                gap: 8px;
+            }
+            
+            .slide {
+                padding: 8px;
+            }
+        }
+
+        /* Landscape phone orientation */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide {
+                padding: 10px;
+            }
+            
+            .faction-header {
+                flex-direction: row;
+                gap: 20px;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            .faction-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .faction-name {
+                font-size: 1.4rem;
             }
             
             .navigation {
-                bottom: 20px;
+                bottom: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
         }
     </style>
