@@ -59,21 +59,22 @@
             font-size: var(--text-base);
         }
 
-        .presentation-container {
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         .header {
             background: rgba(0, 0, 0, 0.3);
-            padding: 15px 30px;
-            border-bottom: 2px solid #4a5568;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 2px solid var(--accent-secondary);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header h1 {
@@ -727,7 +728,7 @@
     </style>
 </head>
 <body>
-    <div class="presentation-container">
+    <div class="container">
         <div class="header">
             <h1>Twilight Imperium 4th Edition Faction Guide</h1>
             <div class="slide-counter">
