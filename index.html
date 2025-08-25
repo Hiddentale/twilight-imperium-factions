@@ -162,74 +162,104 @@
             position: relative;
             overflow: hidden;
         }
+        
+        .faction-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(100, 181, 246, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
 
         .faction-title {
             flex: 1;
         }
-
+        
         .faction-name {
-            font-size: 2.5rem;
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-2);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            line-height: 1.2;
         }
 
         .difficulty-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-4);
         }
-
+        
         .beginner {
-            background: linear-gradient(45deg, #48bb78, #38a169);
+            background: var(--success);
             color: white;
         }
 
         .intermediate {
-            background: linear-gradient(45deg, #ed8936, #dd6b20);
+            background: var(--warning);
             color: white;
         }
 
         .advanced {
-            background: linear-gradient(45deg, #e53e3e, #c53030);
+            background: var(--error);
             color: white;
         }
 
         .faction-identity {
-            font-size: 1.1rem;
-            color: #e2e8f0;
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
             font-style: italic;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 300;
         }
-
+        
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 25px;
+            gap: var(--space-5);
+            margin-top: var(--space-6);
         }
 
         .content-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border-left: 4px solid #4299e1;
+            background: rgba(100, 181, 246, 0.08);
+            border-radius: var(--radius-md);
+            padding: var(--space-5);
+            border-left: 4px solid var(--accent-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            background: rgba(100, 181, 246, 0.12);
+            border-left-color: var(--accent-tertiary);
+            transform: translateX(4px);
         }
 
         .content-section h3 {
-            color: #63b3ed;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--accent-secondary);
+            font-size: var(--text-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            font-family: var(--font-heading);
         }
 
-        .content-section p, .content-section ul {
+        .content-section p {
             line-height: 1.6;
-            color: #e2e8f0;
+            color: var(--text-secondary);
         }
 
         .content-section ul {
@@ -238,18 +268,21 @@
         }
 
         .content-section li {
-            margin-bottom: 24px;
-            padding-left: 20px;
+            margin-bottom: var(--space-3);
+            padding-left: var(--space-5);
             position: relative;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         .content-section li:before {
             content: "▶";
             position: absolute;
             left: 0;
-            color: #4299e1;
+            color: var(--accent-secondary);
+            font-size: var(--text-sm);
         }
-        
+
         .strengths-weaknesses {
             grid-column: 1 / -1;
             display: grid;
