@@ -16,6 +16,7 @@
             background: linear-gradient(135deg, #0a0a2e, #16213e, #1a1a3a);
             color: #e8e8f0;
             min-height: 100vh;
+            overscroll-behavior: contain;
         }
 
         .presentation-container {
@@ -335,7 +336,6 @@
             }
         }
         @media (max-width: 768px) {
-            /* Overall layout adjustments */
             .slide {
                 padding: 10px;
             }
@@ -345,7 +345,6 @@
                 padding-bottom: 100px;
             }
 
-            /* Header adjustments */
             .header {
                 padding: 8px 10px;
                 flex-direction: row;
@@ -407,7 +406,7 @@
             
             .content-section li {
                 margin-bottom: 4px;
-                padding-left: 15px;
+                padding-left: 25px;
             }
 
             .intro-slide {
@@ -476,13 +475,9 @@
                 height: 14px;
             }
 
-            .content-section li {
-                margin-bottom: 4px;
-                padding-left: 22px;
-            }
-
             .content-section li:before {
-                left: 3px;
+                left: 5px;
+                font-size: 0.8em;
             }
 
             .content-grid {
@@ -496,7 +491,6 @@
         }
 
         @media (max-width: 480px) {
-            /* Extra small screens - very compact */
             .faction-name {
                 font-size: 1.2rem;
             }
