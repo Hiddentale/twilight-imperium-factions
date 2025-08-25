@@ -15,12 +15,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0a0a2e, #16213e, #1a1a3a);
             color: #e8e8f0;
-            overflow: hidden;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .presentation-container {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -52,10 +51,11 @@
         .slide-container {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 20px;
             position: relative;
+            overflow-y: auto;
         }
 
         .slide {
@@ -342,6 +342,7 @@
             
             .slide-container {
                 padding: 10px;
+                padding-bottom: 100px;
             }
 
             /* Header adjustments */
@@ -361,7 +362,6 @@
                 padding: 4px 8px;
             }
 
-            /* Faction header mobile layout */
             .faction-header {
                 gap: 15px;
                 margin-bottom: 15px;
