@@ -282,20 +282,28 @@
             color: var(--accent-secondary);
             font-size: var(--text-sm);
         }
-
-        .strengths-weaknesses {
+        
+         .strengths-weaknesses {
             grid-column: 1 / -1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: var(--space-5);
         }
 
         .strengths {
-            border-left-color: #48bb78;
+            border-left-color: var(--success);
         }
 
         .weaknesses {
-            border-left-color: #e53e3e;
+            border-left-color: var(--error);
+        }
+
+        .strengths h3 {
+            color: var(--success);
+        }
+
+        .weaknesses h3 {
+            color: var(--error);
         }
 
         .navigation {
