@@ -483,6 +483,62 @@
         </div>
 
         <div class="main-content">
+            <div class="audio-container" style="display: none;">
+                <audio id="audio-0" loop>
+                    <source src="music/intro.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-1" loop>
+                    <source src="music/barony-letnev.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-2" loop>
+                    <source src="music/federation-sol.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-3" loop>
+                    <source src="music/universities-jolnar.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-4" loop>
+                    <source src="music/l1z1x-mindnet.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-5" loop>
+                    <source src="music/xxcha-kingdom.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-6" loop>
+                    <source src="music/yin-brotherhood.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-7" loop>
+                    <source src="music/yssaril-tribes.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-8" loop>
+                    <source src="music/emirates-hacan.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-9" loop>
+                    <source src="music/clan-saar.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-10" loop>
+                    <source src="music/naalu-collective.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-11" loop>
+                    <source src="music/sardakk-norr.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-12" loop>
+                        <source src="music/winnu.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-13" loop>
+                    <source src="music/arborec.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-14" loop>
+                    <source src="music/embers-muaat.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-15" loop>
+                    <source src="music/ghosts-creuss.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-16" loop>
+                    <source src="music/mentak-coalition.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-17" loop>
+                    <source src="music/nekro-virus.mp3" type="audio/mpeg">
+                </audio>
+            </div>
             <div class="slide active intro-slide">
                 <h2>Choose Your Galactic Destiny</h2>
                 <p>Welcome to Twilight Imperium 4th Edition! Each faction offers a completely unique way to experience galactic conquest. This guide will help you choose the perfect faction for your first game.</p>
@@ -1453,6 +1509,109 @@
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
 
+        / Audio management
+        let currentAudio = null;
+        let audioStartTimes = {}; // Track if audio has played from start
+        let isTransitioning = false;
+
+        // Initialize audio elements
+        function initializeAudio() {
+            for (let i = 0; i < totalSlides; i++) {
+                const audio = document.getElementById(`audio-${i}`);
+                if (audio) {
+                    audio.volume = 0;
+                    audioStartTimes[i] = false; // Track if we've played from start
+            
+                    // When audio ends, replay from beginning
+                    audio.addEventListener('ended', () => {
+                        audioStartTimes[i] = true;
+                        audio.currentTime = 0;
+                        audio.play();
+                    });
+                }
+            }
+        }
+
+        // Get 30% position of audio track
+        function getThirtyPercentTime(audio) {
+            return audio.duration * 0.3;
+        }
+
+        // Cross-fade between audio tracks
+        async function crossFadeAudio(fromAudio, toAudio, duration = 1000) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+    
+            const steps = 20;
+            const stepDuration = duration / steps;
+            const volumeStep = 1 / steps;
+    
+            // Start new audio if provided
+            if (toAudio) {
+                const slideIndex = parseInt(toAudio.id.split('-')[1]);
+        
+                // Set starting position based on whether it's played from start before
+                if (!audioStartTimes[slideIndex] && toAudio.duration) {
+                    toAudio.currentTime = getThirtyPercentTime(toAudio);
+                } else {
+                    toAudio.currentTime = 0;
+                }
+        
+                toAudio.volume = 0;
+                toAudio.play();
+            }
+    
+            // Cross-fade
+            for (let i = 0; i <= steps; i++) {
+                await new Promise(resolve => setTimeout(resolve, stepDuration));
+        
+                if (fromAudio) {
+                    fromAudio.volume = Math.max(0, 1 - (i * volumeStep));
+                }
+        
+                if (toAudio) {
+                    toAudio.volume = Math.min(1, i * volumeStep);
+                }
+            }
+    
+            // Stop old audio
+            if (fromAudio) {
+                fromAudio.pause();
+                fromAudio.volume = 0;
+            }
+    
+            isTransitioning = false;
+        }
+
+        // Play audio for specific slide
+        function playSlideAudio(slideIndex) {
+            const newAudio = document.getElementById(`audio-${slideIndex}`);
+    
+            if (newAudio && newAudio !== currentAudio) {
+                // Wait for audio metadata to load if needed
+                if (newAudio.readyState < 1) {
+                    newAudio.addEventListener('loadedmetadata', () => {
+                        crossFadeAudio(currentAudio, newAudio);
+                    }, { once: true });
+                } else {
+                    crossFadeAudio(currentAudio, newAudio);
+                }
+        
+                currentAudio = newAudio;
+            }
+        }
+
+        // Stop all audio
+        function stopAllAudio() {
+            for (let i = 0; i < totalSlides; i++) {
+                const audio = document.getElementById(`audio-${i}`);
+                if (audio) {
+                    audio.pause();
+                    audio.volume = 0;
+                }
+            }
+            currentAudio = null;
+        
         // Initialize indicators
         function initializeIndicators() {
             const indicatorsContainer = document.getElementById('indicators');
@@ -1484,6 +1643,9 @@
             document.querySelectorAll('.indicator').forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === currentSlide);
             });
+
+            // Play audio for current slide
+            playSlideAudio(currentSlide);
         }
 
         function changeSlide(direction) {
@@ -1511,9 +1673,21 @@
             }
         });
 
+        // Handle page visibility changes (pause when tab not active)
+            document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (currentAudio) currentAudio.pause();
+            } else {
+                if (currentAudio) currentAudio.play();
+            }
+        });
+
         // Initialize
-        initializeIndicators();
-        updateSlideDisplay();
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeIndicators();
+            initializeAudio();
+            updateSlideDisplay();
+        });
     </script>
 </body>
 </html>
