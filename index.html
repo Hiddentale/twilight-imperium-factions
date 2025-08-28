@@ -1581,7 +1581,7 @@
                     await new Promise(resolve => setTimeout(resolve, stepDuration));
             
                     if (fromAudio) {
-                        fromAudio.volume = Math.max(0, 1 - (i * volumeStep));
+                        fromAudio.volume = Math.max(0, 0.3 - (i * volumeStep));
                     }
             
                     if (toAudio) {
