@@ -1534,11 +1534,13 @@
                     audio.addEventListener('error', (e) => {
                         console.warn(`Audio file not found: audio-${i}`, e);
                     });
-            
+                    
                     audio.addEventListener('ended', () => {
-                    audioStartTimes[i] = true;
-                        audio.currentTime = 0;
-                        audio.play().catch(e => console.warn('Audio play failed:', e));
+                        audioStartTimes[i] = true;
+                        if (audio === currentAudio) {
+                            audio.currentTime = 0;
+                            audio.play().catch(e => console.warn('Audio play failed:', e));
+                        }
                     });
                 }
             }
@@ -1591,6 +1593,7 @@
         
                 if (fromAudio) {
                     fromAudio.pause();
+                    fromAudio.currentTime = 0;
                     fromAudio.volume = 0;
                 }
         
