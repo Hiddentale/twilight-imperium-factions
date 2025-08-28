@@ -1508,14 +1508,12 @@
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
-
-        // Audio management (with error handling)
+        
         let currentAudio = null;
         let audioStartTimes = {};
         let isTransitioning = false;
-        let audioEnabled = false; // Track if audio is working
-
-        // Initialize audio elements with error handling
+        let audioEnabled = false;
+        
         function initializeAudio() {
             let audioCount = 0;
     
@@ -1525,22 +1523,18 @@
                     audio.volume = 0;
                     audioStartTimes[i] = false;
             
-                    // Handle successful audio load
                     audio.addEventListener('loadeddata', () => {
                         audioCount++;
-                        if (audioCount === 1) { // Enable audio after first file loads
+                        if (audioCount === 1) {
                             audioEnabled = true;
                             console.log('Audio system enabled');
                         }
                     });
             
-                    // Handle audio errors gracefully
                     audio.addEventListener('error', (e) => {
                         console.warn(`Audio file not found: audio-${i}`, e);
-                        // Don't break the script, just continue
                     });
             
-                    // When audio ends, replay from beginning
                     audio.addEventListener('ended', () => {
                     audioStartTimes[i] = true;
                         audio.currentTime = 0;
@@ -1549,7 +1543,6 @@
                 }
             }
     
-            // If no audio loads after 2 seconds, continue without audio
             setTimeout(() => {
                 if (!audioEnabled) {
                     console.log('No audio files found, continuing without audio');
@@ -1557,13 +1550,11 @@
             }, 2000);
         }
 
-        // Get 30% position of audio track
         function getThirtyPercentTime(audio) {
             if (!audio.duration) return 0;
             return audio.duration * 0.3;
         }
 
-        // Cross-fade between audio tracks
         async function crossFadeAudio(fromAudio, toAudio, duration = 1000) {
             if (isTransitioning || !audioEnabled) return;
             isTransitioning = true;
@@ -1572,12 +1563,10 @@
                 const steps = 20;
                 const stepDuration = duration / steps;
                 const volumeStep = 1 / steps;
-        
-                // Start new audio if provided
+                
                 if (toAudio) {
                     const slideIndex = parseInt(toAudio.id.split('-')[1]);
             
-                    // Set starting position based on whether it's played from start before
                     if (!audioStartTimes[slideIndex] && toAudio.duration) {
                         toAudio.currentTime = getThirtyPercentTime(toAudio);
                     } else {
@@ -1588,7 +1577,6 @@
                     await toAudio.play();
                 }
         
-                // Cross-fade
                 for (let i = 0; i <= steps; i++) {
                     await new Promise(resolve => setTimeout(resolve, stepDuration));
             
@@ -1601,7 +1589,6 @@
                     }
                 }
         
-                // Stop old audio
                 if (fromAudio) {
                     fromAudio.pause();
                     fromAudio.volume = 0;
@@ -1614,14 +1601,12 @@
             isTransitioning = false;
         }
 
-        // Play audio for specific slide
         function playSlideAudio(slideIndex) {
             if (!audioEnabled) return;
     
             const newAudio = document.getElementById(`audio-${slideIndex}`);
     
             if (newAudio && newAudio !== currentAudio) {
-                // Wait for audio metadata to load if needed
                 if (newAudio.readyState < 1) {
                     newAudio.addEventListener('loadedmetadata', () => {
                         crossFadeAudio(currentAudio, newAudio);
@@ -1634,7 +1619,6 @@
             }
         }
 
-        // Essential navigation functions (these must work regardless of audio)
         function initializeIndicators() {
             const indicatorsContainer = document.getElementById('indicators');
             if (!indicatorsContainer) return;
@@ -1649,7 +1633,6 @@
         }
 
         function updateSlideDisplay() {
-            // Core navigation logic (must work)
             slides.forEach(slide => slide.classList.remove('active'));
             slides[currentSlide].classList.add('active');
     
@@ -1667,7 +1650,6 @@
                 indicator.classList.toggle('active', index === currentSlide);
             });
     
-            // Try to play audio (but don't break if it fails)
             try {
                 playSlideAudio(currentSlide);
             } catch (error) {
@@ -1690,19 +1672,15 @@
             }
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
         });
 
-        // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            // Core functionality first (must work)
             initializeIndicators();
             updateSlideDisplay();
     
-            // Audio second (optional)
             try {
                 initializeAudio();
             } catch (error) {
@@ -1710,11 +1688,8 @@
             }
         });
 
-        // Backup initialization in case DOMContentLoaded already fired
         if (document.readyState === 'loading') {
-            // DOMContentLoaded has not fired yet
         } else {
-            // DOMContentLoaded has already fired
             initializeIndicators();
             updateSlideDisplay();
             try {
