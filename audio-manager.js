@@ -1,3 +1,15 @@
+class AudioManager {
+  constructor() {
+    this.currentSlide = null
+    this.currentAudio = null
+    this.audioElements = new Map()
+    this.loadingPromises = new Map()
+    this.activeTransition = null
+    this.audioEnabled = false
+    this.preloadQueue = []
+  }
+}
+
 let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
