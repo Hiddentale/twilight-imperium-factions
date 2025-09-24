@@ -1,29 +1,29 @@
-name: Deploy to NearlyFreeSpeech
+name: Debug Deploy to NearlyFreeSpeech
+
 on:
   push:
-    branches: [ main ]  # Change to 'master' if that's your default branch
+    branches: [ main ]
+
 jobs:
-  deploy:
+  debug:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    - name: Deploy to NearlyFreeSpeech
+    - name: Debug Connection
       run: |
-        mkdir -p ~/.ssh
-        
-        ssh-keyscan -H ssh.phx.nearlyfreespeech.net >> ~/.ssh/known_hosts
+        echo "Testing connection to NearlyFreeSpeech..."
+        echo "Host: ${{ secrets.SFTP_HOST }}"
+        echo "Username: ${{ secrets.SFTP_USERNAME }}"
+        echo "Username length: ${#SFTP_USERNAME}"
         
         sudo apt-get update
         sudo apt-get install -y sshpass
         
-        sshpass -p "${{ secrets.SFTP_PASSWORD }}" rsync -avz --delete \
-          --exclude='.git*' \
-          --exclude='README.md' \
-          --exclude='.github' \
-          --exclude='node_modules' \
-          ./ "${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}:/home/public/"
+        sshpass -p "${{ secrets.SFTP_PASSWORD }}" ssh -v -o StrictHostKeyChecking=no \
+          "${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}" "pwd && ls -la"
       env:
+        SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
         SSHPASS: ${{ secrets.SFTP_PASSWORD }}
