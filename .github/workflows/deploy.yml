@@ -1,0 +1,26 @@
+name: Deploy to NearlyFreeSpeech
+
+# Trigger this workflow when code is pushed to the main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Deploy to NearlyFreeSpeech
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        protocol: sftp
+        
+        server: ${{ secrets.SFTP_HOST }}
+        username: ${{ secrets.SFTP_USERNAME }}
+        password: ${{ secrets.SFTP_PASSWORD }}
+        port: 22
+        
+        server-dir: /home/public/
