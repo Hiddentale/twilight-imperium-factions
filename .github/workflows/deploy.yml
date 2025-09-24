@@ -1,4 +1,4 @@
-name: Debug Deploy to NearlyFreeSpeech
+name: Deploy to NearlyFreeSpeech
 
 on:
   push:
@@ -14,16 +14,24 @@ jobs:
     
     - name: Debug Connection
       run: |
-        echo "Testing connection to NearlyFreeSpeech..."
-        echo "Host: ${{ secrets.SFTP_HOST }}"
-        echo "Username: ${{ secrets.SFTP_USERNAME }}"
-        echo "Username length: ${#SFTP_USERNAME}"
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+        ssh-keyscan -H ssh.nyc1.nearlyfreespeech.net >> ~/.ssh/known_hosts
         
-        sudo apt-get update
-        sudo apt-get install -y sshpass
+        sudo apt-get update && sudo apt-get install -y rsync
         
-        sshpass -p "${{ secrets.SFTP_PASSWORD }}" ssh -v -o StrictHostKeyChecking=no \
-          "${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}" "pwd && ls -la"
+        rsync -avz --delete \
+          --exclude='.git*' \
+          --exclude='README.md' \
+          --exclude='.github/' \
+          --exclude='node_modules/' \
+          --progress \
+          ./ "${{ secrets.SFTP_USERNAME }}@ssh.nyc1.nearlyfreespeech.net:/home/public/"
+        
+        echo "Deployment completed successfully"
       env:
-        SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-        SSHPASS: ${{ secrets.SFTP_PASSWORD }}
+        SSH_AUTH_SOCK: /tmp/ssh_auth_sock
