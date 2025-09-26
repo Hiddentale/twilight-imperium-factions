@@ -3,153 +3,1041 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seloria's website</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <style>
-        :root {
-            --bg-primary: #0a0d1a;
-            --bg-secondary: #1a1f3a;
-            --accent-primary: #ffd700;
-            --accent-secondary: #64b5f6;
-            --text-primary: #ffffff;
-            --text-secondary: #e3f2fd;
-            --font-heading: 'Orbitron', monospace;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: linear-gradient(135deg, #0a0a2e, #16213e, #1a1a3a);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 800px;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        h1 {
-            font-family: var(--font-heading);
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--accent-primary);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
-            line-height: 1.1;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-secondary), #4fc3f7);
-            color: white;
-            padding: 1rem 2.5rem;
-            font-size: 1.125rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 10px 30px rgba(100, 181, 246, 0.3);
-            font-family: var(--font-body);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(100, 181, 246, 0.4);
-            background: linear-gradient(135deg, #4fc3f7, var(--accent-secondary));
-        }
-
-        .description {
-            background: rgba(25, 30, 50, 0.6);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 3rem 0;
-            border-left: 4px solid var(--accent-secondary);
-            backdrop-filter: blur(20px);
-        }
-
-        .description p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature {
-            background: rgba(100, 181, 246, 0.08);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-secondary);
-        }
-
-        .feature h3 {
-            color: var(--accent-secondary);
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            font-family: var(--font-heading);
-        }
-
-        .feature p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Twilight Imperium 4th Edition - Faction Guide</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Seloria's website</h1>
-        <p class="subtitle">A work in progress</p>
-        
-        <div class="description">
-            <p>Currently this website only has a faction guide for <strong>Twilight Imperium 4th Edition</strong>!</p>
-            <p>Access it through the button below</p
+        <div class="header">
+            <h1>Twilight Imperium 4th Edition Faction Guide</h1>
+            <div class="slide-counter">
+                <span id="current-slide">1</span> / <span id="total-slides">18</span>
+            </div>
         </div>
 
-        <a href="ti4-faction-guide.html" class="cta-button">
-            TI4 Faction Guide
-        </a>
-        <a href="ti4-faction-guide.html" class="cta-button">
-            My blog
-        </a>
+        <div class="main-content">
+            <div class="audio-container" style="display: none;">
+                <audio id="audio-0" loop>
+                    <source src="music/intro.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-1" loop>
+                    <source src="music/barony-letnev.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-2" loop>
+                    <source src="music/federation-sol.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-3" loop>
+                    <source src="music/universities-jolnar.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-4" loop>
+                    <source src="music/l1z1x-mindnet.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-5" loop>
+                    <source src="music/xxcha-kingdom.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-6" loop>
+                    <source src="music/yin-brotherhood.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-7" loop>
+                    <source src="music/yssaril-tribes.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-8" loop>
+                    <source src="music/emirates-hacan.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-9" loop>
+                    <source src="music/clan-saar.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-10" loop>
+                    <source src="music/naalu-collective.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-11" loop>
+                    <source src="music/sardakk-norr.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-12" loop>
+                        <source src="music/winnu.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-13" loop>
+                    <source src="music/arborec.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-14" loop>
+                    <source src="music/embers-muaat.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-15" loop>
+                    <source src="music/ghosts-creuss.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-16" loop>
+                    <source src="music/mentak-coalition.mp3" type="audio/mpeg">
+                </audio>
+                <audio id="audio-17" loop>
+                    <source src="music/nekro-virus.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            <div class="slide active intro-slide">
+                <h2>Choose Your Galactic Destiny</h2>
+                <p>Welcome to Twilight Imperium 4th Edition! Each faction offers a completely unique way to experience galactic conquest. This guide will help you choose the perfect faction for your first game.</p>
+            </div>
+
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/barony.jpg" alt="Barony of Letnev" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">The Barony of Letnev</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Space vampires with the galaxy's most powerful military aristocracy, commanding through overwhelming firepower and massive fleets.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Get extra ships in each fleet beyond normal limits, can reroll combat dice by spending trade goods, and start with incredible 6-resource production - the most in the game.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Aggressive military conquest through superior numbers and firepower. Build massive dreadnought fleets and crush enemies through decisive battles.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're the faction everyone fears. Your fleets are bigger, your ships hit harder, and you have resources to replace losses. Perfect for players who love rolling dice and winning through raw power.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Begin with advanced technologies (Plasma Scoring + Antimass Deflectors) and enough resources to research 2 more technologies in round 1 - something no other faction can match.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent production capabilities</li>
+                                <li>Powerful combat abilities</li>
+                                <li>Large fleet capacity</li>
+                                <li>Intimidating presence</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Expensive strategy to maintain</li>
+                                <li>Limited strategic flexibility</li>
+                                <li>Purely military focus</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Federation of Sol -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/sol.jpg" alt="Federation of Sol" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Federation of Sol</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Humanity's space-faring federation, representing versatility and superior ground forces through advanced military deployment.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Get an extra action every round, instantly deploy 2 infantry to any planet you control, and your soldiers are stronger than normal infantry. Your flagship generates free troops automatically.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Aggressive expansion with strong territorial control. Excel at taking and holding planets through superior troop deployment and tactical flexibility.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Great for players who don't want one rigid strategy. The extra actions help you learn the game without running out of moves, and you can adapt to almost any situation.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Good balanced starting position with Neural Motivator and Antimass Deflectors technologies, plus 5 infantry for strong ground presence.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Very flexible gameplay</li>
+                                <li>Extra actions per turn</li>
+                                <li>Excellent ground forces</li>
+                                <li>Forgiving for beginners</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>No major economic bonuses</li>
+                                <li>Abilities are powerful but not flashy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Universities of Jol-Nar -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/jolnar.jpg" alt="Universities of Jolnar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Universities of Jol-Nar</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Brilliant aquatic academics who pursue knowledge above warfare - the galaxy's premier researchers and technology developers.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>When others research technology, you can copy it for the same cost. You can skip requirements when researching non-military tech. Your ships generate trade goods when enemies move near them.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Economic and technological superiority. Focus on collecting technologies and using superior science to compete despite weaker military.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're the galaxy's mad scientist! Collecting technologies feels rewarding, and out-teching opponents is incredibly satisfying. Great for players who prefer thinking over fighting.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Begin with 2 technologies (E-Res Siphons + Neural Motivator) and 4 commodities for strong early trading position.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Amazing technology acquisition</li>
+                                <li>Strong economy</li>
+                                <li>Flexible strategic options</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Combat penalty (-1 to all rolls)</li>
+                                <li>Vulnerable if attacked early</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L1Z1X Mindnet -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/L1z1x.jpg" alt="L1Z1X Mindnet" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">L1Z1X Mindnet</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Ancient cybernetic beings who merged with technology to survive, now seeking to assimilate the galaxy through technological superiority.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Capture infrastructure when conquering planets instead of rebuilding it. Gain resources from any space battle (win or lose), plus build replacement ships after victories. Can research any technology by spending extra resources.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Military conquest with technological advancement. Build feared dreadnought fleets and systematically conquer the galaxy while growing stronger.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Straightforward "build dreadnoughts, conquer planets, get stronger" strategy. Every battle makes you more powerful, and your robot army theme is very satisfying.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Begin with a dreadnought, strong starting technologies (Plasma Scoring + Sarween Tools), and solid production base.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent military units</li>
+                                <li>Gains infrastructure from conquest</li>
+                                <li>Flexible tech research</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Expensive units strain early economy</li>
+                                <li>Limited non-military options</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xxcha Kingdom -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/Xxcha.jpg" alt="Xxcha Kingdom" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Xxcha Kingdom</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Peaceful turtle-like diplomats who prefer negotiation to warfare, serving as the galaxy's mediators and peacekeepers.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Peacefully claim empty planets adjacent to your territory using diplomacy. Cancel political agendas and force new votes. Strong defensive capabilities.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Defensive diplomacy focused on politics and negotiation. Build strong defensive positions while winning through political maneuvering rather than combat.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Perfect for players who enjoy political intrigue over warfare. You're the galaxy's wise peacekeeper, forming alliances and manipulating outcomes through clever diplomacy.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Strong starting fleet with defensive technology (Graviton Laser System) and good balanced resource base.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent defense capabilities</li>
+                                <li>Strong political control</li>
+                                <li>Peaceful expansion options</li>
+                                <li>Great for learning diplomacy</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Limited offensive power</li>
+                                <li>Slow military objectives</li>
+                                <li>Dependent on others for trade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yin Brotherhood -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/yin.jpg" alt="Yin Brotherhood" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Yin Brotherhood</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Fanatical religious clones who spread their faith across the galaxy, converting enemies to their cause through zealous devotion.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Convert enemy infantry to join your side during ground combat. Sacrifice your own ships during space battles to guarantee hits on enemies.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Aggressive ground-focused combat with conversion tactics. Love invasions where you can turn enemy armies to your faith through religious fervor.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Converting enemies feels incredibly satisfying - nothing beats turning their army against them. The sacrifice mechanic creates exciting tactical decisions.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Balanced fleet with 4 fighters and strong starting technology (Sarween Tools) for good early production.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent ground combat through conversion</li>
+                                <li>Reliable space damage through sacrifice</li>
+                                <li>Strong infantry focus</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Weaker space fleets</li>
+                                <li>Sacrifice ability costs ships</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yssaril Tribes -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/yssaril.jpg" alt="Yssaril Tribes" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Yssaril Tribes</h2>
+                        <div class="difficulty-badge beginner"> BEGINNER</div>
+                        <p class="faction-identity">Chameleon-like espionage masters who manipulate galactic politics from the shadows through superior intelligence networks.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Skip your turn by discarding action cards to control timing. Draw extra action cards for better selection. Hold unlimited action cards (normally limited to 7).</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Political manipulation and timing control. Play the long game through careful action card management and strategic positioning.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're the puppet master pulling strings behind the scenes. The unlimited cards create unique opportunities, and controlling timing keeps opponents guessing.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Neural Motivator technology for card advantage and balanced starting fleet for steady expansion.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent action card economy</li>
+                                <li>Flexible timing control</li>
+                                <li>Strong late-game political power</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Weaker military capabilities</li>
+                                <li>Slow expansion</li>
+                                <li>Requires political awareness</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emirates of Hacan -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/emirates.jpg" alt="Emirates of Hacan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Emirates of Hacan</h2>
+                        <div class="difficulty-badge intermediate">INTERMEDIATE</div>
+                        <p class="faction-identity">Lion-like master traders who built their civilization on commerce, serving as the galaxy's bankers and deal-makers.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Trade with any player regardless of proximity (others can only trade with neighbors). Refresh commodities for free when trade happens. Start with 6 commodities instead of 3-4.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Economic diplomacy focused on profitable deals and negotiation. Be the galaxy's central bank while building economic advantages.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Perfect for social players who love making deals. Every turn involves interesting negotiations, and you're often the kingmaker who tips power balances.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Strong starting technologies (Antimass Deflectors + Sarween Tools) and maximum commodity production for immediate trading advantage.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Excellent economy</li>
+                                <li>Strong diplomatic position</li>
+                                <li>Very flexible strategic options</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Weak early military</li>
+                                <li>Heavily dependent on other players</li>
+                                <li>Can become target of others</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clan of Saar -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/clan_of_saar.jpg" alt="Clan of Saar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Clan of Saar</h2>
+                        <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
+                        <p class="faction-identity">Nomadic scavengers who turned displacement into strength, living among asteroid fields with completely mobile civilization.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Get free trade goods when claiming new planets. Can win even if enemies take your home system. Your space docks can move like ships and produce in the same turn.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Mobile opportunistic expansion. Constantly relocate your civilization, swooping in to claim resources then moving when threatened.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You play completely differently from static empires. The mobile civilization concept is unique and creates fascinating tactical decisions about positioning.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Floating space dock and strong carrier fleet for immediate mobile expansion, plus Antimass Deflectors for movement advantage.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Ultimate mobility</li>
+                                <li>Can't be eliminated normally</li>
+                                <li>Extra trade goods</li>
+                                <li>Unique tactical options</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Can struggle in prolonged conflicts</li>
+                                <li>Requires active management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Naalu Collective -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/naalu.jpg" alt="Naalu Collective" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Naalu Collective</h2>
+                        <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
+                        <p class="faction-identity">Precognitive snake-people who see the future and manipulate time, always staying one step ahead of enemies.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Always go first every round (place "0" token on strategy cards). Escape from bad fights to adjacent empty systems. Drain enemy command tokens when they activate your systems.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Hit-and-run tactics with superior positioning. Use speed advantage and foresight to strike where enemies are weak while avoiding bad fights.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You feel like a chess master who sees future moves. Always acting first lets you react to everyone's plans, and escaping danger feels cleverly thematic.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Sarween Tools and mobile fighter fleet with special movement abilities for hit-and-run tactics.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Always acts first</li>
+                                <li>Mobile fighters</li>
+                                <li>Can avoid bad combat</li>
+                                <li>Good early expansion</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Fragile fighters</li>
+                                <li>Requires good positioning</li>
+                                <li>Struggles in late-game slugfests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sardakk N'orr -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/sardakk.jpg" alt="Sardakk N'orr" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Sardakk N'orr</h2>
+                        <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
+                        <p class="faction-identity">Giant warrior insects who live for honorable battle, representing the classic proud warrior race archetype.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>+1 to ALL combat rolls in both space and ground battles - they simply fight better than anyone else in every situation.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Aggressive military conquest through superior combat effectiveness. Fight early and often, using combat bonuses to win battles others would lose.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're the galaxy's apex predators. Every fight gives you better odds, making risky battles winnable. Perfect for players who love direct confrontation.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Large starting army (2 carriers, 5 infantry) built purely for invasion and ground combat dominance.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Superior in all combat</li>
+                                <li>Intimidating presence</li>
+                                <li>Can take fights others can't</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>No starting technology</li>
+                                <li>Limited expansion options</li>
+                                <li>Heavily combat-dependent</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winnu -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/winnu.jpg" alt="The Winnu" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">The Winnu</h2>
+                        <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
+                        <p class="faction-identity">Ambitious inheritors of the ancient Lazax Empire who consider themselves rightful rulers, focused on reclaiming the galactic throne.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Don't pay influence to take the galactic center initially. Get free space dock and planetary defense system when successfully capturing the galactic center.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>All-or-nothing imperial focus. Rush to control the galactic center quickly and hold the galaxy's political center through determination.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>High-risk, high-reward gameplay as the underdog reclaiming their throne. Every game becomes a dramatic race against time with immense tension.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Can choose any starting technology plus faction techs for easier galactic center access (Lazax Gate Folding).</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Free galactic center access</li>
+                                <li>Excellent late-game political power</li>
+                                <li>Immediate defenses when taking center</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Very weak start</li>
+                                <li>Entirely dependent on galactic center control</li>
+                                <li>Narrow strategic focus</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Arborec -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/arborec.jpg" alt="The Arborec" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">The Arborec</h2>
+                        <div class="difficulty-badge advanced"> ADVANCED</div>
+                        <p class="faction-identity">Living tree entities who grow their forces organically rather than building industrially, representing nature's slow but inexorable expansion.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Can't build infantry normally - instead get 1 free infantry per turn on any planet. Infantry can produce new units by spending resources. Infantry can move between nearby planets without ships.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Defensive economic growth that snowballs into overwhelming numbers. Start weak but become unstoppable through biological multiplication.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Watching small seedlings grow into a galactic forest is incredibly satisfying. Very unique gameplay focused on biological growth rather than industrial production.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Weakest home system (2 resources) but starts with Magen Defense Grid for planetary defense.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Incredible late-game production</li>
+                                <li>Excellent planet defense</li>
+                                <li>Unique tactical flexibility</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Weakest starting position</li>
+                                <li>Very slow early game</li>
+                                <li>Vulnerable to early aggression</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Embers of Muaat -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/embers.jpg" alt="Embers of Muaat" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Embers of Muaat</h2>
+                        <div class="difficulty-badge advanced"> ADVANCED</div>
+                        <p class="faction-identity">Beings of living flame who master stellar destruction, beginning the game with the galaxy's only War Sun superweapon.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Spend command tokens to create fighters or destroyers in systems with your War Suns. Can fly through (not stop in) supernovas while others cannot. Start with Prototype War Sun.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>High-risk/high-reward centered on leveraging early War Sun advantage while racing to upgrade it for mobility.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You begin with a planet-killing superweapon! The psychological impact and raw power creates epic moments perfect for players wanting immediate galactic threat status.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Prototype War Sun (slower but devastating), Plasma Scoring technology, but limited early mobility requiring careful positioning.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Early superweapon access</li>
+                                <li>Excellent bombardment</li>
+                                <li>Intimidating presence</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Very slow expansion</li>
+                                <li>Expensive units</li>
+                                <li>Vulnerable if War Sun is destroyed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ghosts of Creuss -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/ghosts.jpg" alt="Ghosts of Creuss" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Ghosts of Creuss</h2>
+                        <div class="difficulty-badge advanced"> ADVANCED</div>
+                        <p class="faction-identity">Mysterious energy beings from another dimension who travel through wormholes, appearing where enemies least expect them.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>All different wormholes types act as one type of wormhole for you. Start outside main galaxy with special wormhole connection. Others can't use your home wormhole without permission.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Highly mobile hit-and-run tactics through wormhole manipulation. Strike unexpectedly where enemies are weak, then vanish to safety.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>Perfect for players who love spatial puzzles and surprising opponents. Your unique movement creates gameplay no other faction can replicate.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Gravity Drive technology and special wormhole tokens, plus fleet positioned outside main galaxy for unique strategic positioning.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Unmatched mobility</li>
+                                <li>Safe home base</li>
+                                <li>Can strike anywhere with wormholes</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Limited expansion options</li>
+                                <li>Dependent on wormhole positions</li>
+                                <li>Complex spatial decisions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentak Coalition -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/mentak.jpg" alt="Mentak Coalition" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">Mentak Coalition</h2>
+                        <div class="difficulty-badge advanced"> ADVANCED</div>
+                        <p class="faction-identity">Former political prisoners who formed their own nation, representing cunning opportunism and making the best of bad situations.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Get free shots before space combat with cruisers/destroyers. Steal trade goods when neighbors get wealthy. Your trade goods are worth double resources.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Opportunistic disruption focused on profiting from others' success while using superior early combat capabilities.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're are the knife. When people get too powerful you cut them down. Every trade is now a 3-way interaction, where you can negotiate if you will steal their resources or not.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>Strong combat technologies (Sarween Tools + Plasma Scoring) and balanced fleet optimized for piracy.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Economic disruption</li>
+                                <li>Strong early combat</li>
+                                <li>Easy kingmakers, Highly political</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Creates enemies through stealing</li>
+                                <li>Complex resource management</li>
+                                <li>Situational abilities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nekro Virus -->
+            <div class="slide">
+                <div class="faction-header">
+                    <div class="faction-image">
+                        <div><img src="images/nekro.jpg" alt="The Nekro Virus" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"></div>
+                    </div>
+                    <div class="faction-title">
+                        <h2 class="faction-name">The Nekro Virus</h2>
+                        <div class="difficulty-badge advanced"> ADVANCED</div>
+                        <p class="faction-identity">Self-replicating machines that consume and copy everything they encounter, representing the fear of technological assimilation.</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3> Special Abilities</h3>
+                        <p>Steal technologies by destroying enemy units in combat. Can't research normally - instead get extra actions. Can copy faction abilities through special technologies.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Playstyle</h3>
+                        <p>Aggressive expansion focused on constant combat to steal technologies. Must fight continuously to grow stronger through assimilation.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Why It's Fun</h3>
+                        <p>You're the terrifying villain that becomes stronger through every victory! Turning enemies' own tech against them is extremely satisfying.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3> Starting Assets</h3>
+                        <p>No starting technology (unique disadvantage) but strong military fleet including dreadnought for early combat advantage.</p>
+                    </div>
+
+                    <div class="strengths-weaknesses">
+                        <div class="content-section strengths">
+                            <h3> Strengths</h3>
+                            <ul>
+                                <li>Grows through combat</li>
+                                <li>Can eventually have any technology</li>
+                                <li>Very thematic</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section weaknesses">
+                            <h3> Weaknesses</h3>
+                            <ul>
+                                <li>Starts with no technology</li>
+                                <li>Must fight constantly</li>
+                                <li>Can't vote politically, complex tech management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-indicators" id="indicators"></div>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
     </div>
+
+    <script src="audio-manager.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
