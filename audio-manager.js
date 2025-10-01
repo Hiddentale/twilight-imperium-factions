@@ -86,7 +86,7 @@ class AudioManager {
     if (!newAudio) return
     
     newAudio.volume = 0.3
-    newAudio.currentTime = 0
+    newAudio.currentTime = newAudio.duration * 0.29
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
   }
