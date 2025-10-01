@@ -3,9 +3,8 @@ class AudioManager {
     this.currentSlide = null
     this.currentAudio = null
     this.audioElements = new Map()
-    this.audioStartTimes = new Map()
     this.audioEnabled = false
-    this.isTransitioning = false 
+    this.failedAudioFiles = new Set()
     this.initialize()
   }
   
@@ -14,18 +13,13 @@ class AudioManager {
     const totalSlides = slides.length
     let loadedCount = 0
     
-    // Loop through all possible audio elements
     for (let i = 0; i < totalSlides; i++) {
       const audio = document.getElementById(`audio-${i}`)
       
       if (audio) {
-        // Store the audio element in our Map
         this.audioElements.set(i, audio)
-        this.audioStartTimes.set(i, false)
-        
         audio.volume = 0
-        
-        // Event listeners - notice we use arrow functions to preserve 'this'
+  
         audio.addEventListener('loadeddata', () => {
           loadedCount++
           if (loadedCount === 1) {
@@ -35,133 +29,76 @@ class AudioManager {
         })
         
         audio.addEventListener('error', (e) => {
-          console.warn(`Audio file not found: audio-${i}`, e)
-        })
+          this.failedAudioFiles.add(i)
+                console.warn(`Audio file failed to load: audio-${i}`, {
+                    error: e,
+                    src: audio.src,
+                    networkState: audio.networkState,
+                    readyState: audio.readyState
+                })
+            })
         
-        // Handle looping - restart from beginning after first play
         audio.addEventListener('ended', () => {
           this.audioStartTimes.set(i, true)
           if (audio === this.currentAudio) {
             audio.currentTime = 0
-            audio.play().catch(e => console.warn('Audio play failed:', e))
+            audio.play().catch(e => {
+                        console.error(`Failed to loop audio-${i}:`, e)
+                        this.failedAudioFiles.add(i)
+                    })
           }
         })
       }
     }
     
-     setTimeout(() => {
-        if (!this.audioEnabled) {console.log('No audio files found, continuing without audio')}
-        }, 2000)
-    }
-  
-
-    getThirtyPercentTime(audio) {
-        if (!audio || !audio.duration) return 0
-        return audio.duration * 0.3
-    }
-  
-  async crossFade(fromAudio, toAudio, duration = 1000) {
-    if (!this.audioEnabled) return
-  
-    if (this.abortController) {
-    this.abortController.abort()
-    }
-    this.abortController = new AbortController()
-    const signal = this.abortController.signal
-  
-    this.audioElements.forEach(audio => {
-        if (audio !== toAudio) {
-        audio.pause()
-        audio.volume = 0
+    setTimeout(() => {
+      if (!this.audioEnabled) {
+            console.log('No audio files found, continuing without audio')
         }
-    })
-  
-    this.isTransitioning = true
-    
-    try {
-      const steps = 20
-      const stepDuration = duration / steps
-      const volumeStep = 0.3 / steps
-      
-      // Set up the new audio track
-      if (toAudio) {
-        // Determine starting position based on whether it's looped before
-        const slideIndex = parseInt(toAudio.id.split('-')[1])
-        
-        if (!this.audioStartTimes.get(slideIndex) && toAudio.duration) {
-          // First time playing - start at 30%
-          toAudio.currentTime = this.getThirtyPercentTime(toAudio)
-        } else {
-          // Has looped before - start at beginning
-          toAudio.currentTime = 0
+        if (this.failedAudioFiles.size > 0) {
+            console.warn(`Failed to load ${this.failedAudioFiles.size} audio files:`, 
+                Array.from(this.failedAudioFiles))
         }
-        
-        toAudio.volume = 0
-        await toAudio.play()
-      }
-      
-      for (let i = 0; i <= steps; i++) {
-        if (signal.aborted) return
-      
-        await new Promise(resolve => setTimeout(resolve, stepDuration))
-        
-        if (fromAudio) {
-          fromAudio.volume = Math.max(0, 0.3 - (i * volumeStep))
-        }
-        
-        if (toAudio) {
-          toAudio.volume = Math.min(0.3, i * volumeStep)
-        }
-      }
-      
-      // Clean up old audio
-      if (fromAudio) {
-        fromAudio.pause()
-        fromAudio.currentTime = 0
-        fromAudio.volume = 0
-      }
-      
-    } catch (error) {
-      console.warn('Audio crossfade error:', error)
-    } finally {
-      this.isTransitioning = false
-    }
+    }, 2000)
   }
+  
   
   playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
-  
-    const newAudio = document.getElementById(`audio-${slideIndex}`)
-  
-    if (!newAudio) {
+
+    if (this.failedAudioFiles.has(slideIndex)) {
+        console.warn(`Skipping playback for slide ${slideIndex} - audio file failed to load`)
         if (this.currentAudio) {
-        this.currentAudio.pause()
-        this.currentAudio.volume = 0
-        this.currentAudio.currentTime = 0
-        this.currentAudio = null
+            this.currentAudio.pause()
+            this.currentAudio.volume = 0
+            this.currentAudio = null
         }
         return
     }
-  
-    if (newAudio !== this.currentAudio) {
-        if (newAudio.readyState < 1) {
-        newAudio.addEventListener('loadedmetadata', () => {
-            this.crossFade(this.currentAudio, newAudio)
-        }, { once: true })
-        } else {
-        this.crossFade(this.currentAudio, newAudio)
-        }
     
-        this.currentAudio = newAudio
-    }
-    }
+    this.audioElements.forEach(audio => {
+        audio.pause()
+        audio.currentTime = 0
+        audio.volume = 0
+    })
+    
+    const newAudio = this.audioElements.get(slideIndex)
+    if (!newAudio) return
+    
+    newAudio.volume = 0.3
+    newAudio.currentTime = 0
+    newAudio.play().catch(e => console.warn('Audio play failed:', e))
+    this.currentAudio = newAudio
+  }
   
   getState() {
     return {
       enabled: this.audioEnabled,
-      transitioning: this.isTransitioning,
-      currentSlide: this.currentSlide,
-      totalAudioFiles: this.audioElements.size
+        transitioning: this.isTransitioning,
+        currentSlide: this.currentSlide,
+        totalAudioFiles: this.audioElements.size,
+        failedAudioFiles: Array.from(this.failedAudioFiles),
+        hasErrors: this.failedAudioFiles.size > 0
     }
   }
 }
