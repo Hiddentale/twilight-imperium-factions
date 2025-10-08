@@ -7,12 +7,12 @@ const audioManager = new AudioManager()
 function initializeIndicators() {
   const indicatorsContainer = document.getElementById('indicators')
   if (!indicatorsContainer) return
-  
+
   for (let i = 0; i < totalSlides; i++) {
     const indicator = document.createElement('div')
     indicator.className = 'indicator'
     if (i === 0) indicator.classList.add('active')
-    
+
     indicator.onclick = () => goToSlide(i)
     indicatorsContainer.appendChild(indicator)
   }
@@ -21,27 +21,59 @@ function initializeIndicators() {
 function updateSlideDisplay() {
   slides.forEach(slide => slide.classList.remove('active'))
   slides[currentSlide].classList.add('active')
-  
+
   const currentSlideEl = document.getElementById('current-slide')
   const totalSlidesEl = document.getElementById('total-slides')
   if (currentSlideEl) currentSlideEl.textContent = currentSlide + 1
   if (totalSlidesEl) totalSlidesEl.textContent = totalSlides
-  
+
   const prevBtn = document.getElementById('prevBtn')
   const nextBtn = document.getElementById('nextBtn')
   if (prevBtn) prevBtn.disabled = currentSlide === 0
   if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1
-  
+
   document.querySelectorAll('.indicator').forEach((indicator, index) => {
     indicator.classList.toggle('active', index === currentSlide)
   })
-  
-  
+
+  if (currentSlide > 0) {
+    const factionImages = [
+      'r_letnev.jpg',
+      'r_sol.jpg',
+      'r_jolnar.jpg',
+      'r_l1z1x.jpg',
+      'r_xxcha.jpg',
+      'r_yin.jpg',
+      'r_yssaril.jpg',
+      'r_hacan.jpg',
+      'r_saar.jpg',
+      'r_naalu.jpg',
+      'r_norr.jpg',
+      'r_winnu.jpg',
+      'r_arborec.jpg',
+      'r_muaat.jpg',
+      'r_creuss.jpg',
+      'r_mentak.jpg',
+      'r_nekro.jpg'
+    ]
+
+    const imagePath = `images/${factionImages[currentSlide - 1]}`
+    const img = new Image()
+    img.src = imagePath
+  }
+
   try {
     audioManager.playSlideAudio(currentSlide)
   } catch (error) {
     console.warn('Audio playback error:', error)
   }
+}
+
+
+try {
+  audioManager.playSlideAudio(currentSlide)
+} catch (error) {
+  console.warn('Audio playback error:', error)
 }
 
 function changeSlide(direction) {
@@ -67,7 +99,7 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   initializeIndicators()
   updateSlideDisplay()
-  
+
   console.log('Audio Manager State:', audioManager.getState())
 })
 
@@ -77,50 +109,50 @@ if (document.readyState !== 'loading') {
 }
 
 function showFactionDetails(factionIndex) {
-    const modal = document.getElementById('faction-modal')
-    const modalImage = document.getElementById('modal-faction-image')
-    
-    const factionImages = [
-        'r_letnev.jpg',
-        'r_sol.jpg',
-        'r_jolnar.jpg',
-        'r_l1z1x.jpg',
-        'r_xxcha.jpg',
-        'r_yin.jpg',
-        'r_yssaril.jpg',
-        'r_hacan.jpg',
-        'r_saar.jpg',
-        'r_naalu.jpg',
-        'r_norr.jpg',
-        'r_winnu.jpg',
-        'r_arborec.jpg',
-        'r_muaat.jpg',
-        'r_creuss.jpg',
-        'r_mentak.jpg',
-        'r_nekro.jpg'
-    ]
-    
-    modalImage.src = `images/${factionImages[factionIndex - 1]}`
-    modalImage.alt = `Detailed faction card`
-    modal.classList.add('active')
+  const modal = document.getElementById('faction-modal')
+  const modalImage = document.getElementById('modal-faction-image')
+
+  const factionImages = [
+    'r_letnev.jpg',
+    'r_sol.jpg',
+    'r_jolnar.jpg',
+    'r_l1z1x.jpg',
+    'r_xxcha.jpg',
+    'r_yin.jpg',
+    'r_yssaril.jpg',
+    'r_hacan.jpg',
+    'r_saar.jpg',
+    'r_naalu.jpg',
+    'r_norr.jpg',
+    'r_winnu.jpg',
+    'r_arborec.jpg',
+    'r_muaat.jpg',
+    'r_creuss.jpg',
+    'r_mentak.jpg',
+    'r_nekro.jpg'
+  ]
+
+  modalImage.src = `images/${factionImages[factionIndex - 1]}`
+  modalImage.alt = `Detailed faction card`
+  modal.classList.add('active')
 }
 
 function closeFactionDetails() {
-    const modal = document.getElementById('faction-modal')
-    modal.classList.remove('active')
+  const modal = document.getElementById('faction-modal')
+  modal.classList.remove('active')
 }
 
 // Close modal when clicking outside the image
 document.addEventListener('click', (e) => {
-    const modal = document.getElementById('faction-modal')
-    if (e.target === modal) {
-        closeFactionDetails()
-    }
+  const modal = document.getElementById('faction-modal')
+  if (e.target === modal) {
+    closeFactionDetails()
+  }
 })
 
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeFactionDetails()
-    }
+  if (e.key === 'Escape') {
+    closeFactionDetails()
+  }
 })
