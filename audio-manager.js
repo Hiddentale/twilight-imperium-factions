@@ -186,7 +186,7 @@ class AudioManager {
     newAudio.currentTime = newAudio.duration * 0.3
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
-
+    await new Promise(resolve => setTimeout(resolve, 1000));
     this.preloadAdjacentSlides(slideIndex)
   }
 
