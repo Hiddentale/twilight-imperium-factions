@@ -62,11 +62,8 @@ function updateSlideDisplay() {
     img.src = imagePath
   }
 
-  try {
-    audioManager.playSlideAudio(currentSlide)
-  } catch (error) {
-    console.warn('Audio playback error:', error)
-  }
+  audioManager.playSlideAudio(currentSlide)
+    .catch(error => console.warn('Audio playback error:', error))
 }
 
 
