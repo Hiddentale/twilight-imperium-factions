@@ -54,7 +54,20 @@ function updateSlideDisplay() {
       'r_muaat.jpg',
       'r_creuss.jpg',
       'r_mentak.jpg',
-      'r_nekro.jpg'
+      'r_nekro.jpg',
+      'r_argent.jpg',
+      'r_empyrean.jpg',
+      'r_mahact.jpg',
+      'r_naaz.jpg',
+      'r_nomad.jpg',
+      'r_titans.jpg',
+      'r_vuilraith.jpg',
+      'r_keleres.jpg',
+      'r_bastion.jpg',
+      'r_deepwrought.jpg',
+      'r_crimson.jpg',
+      'r_ralnelconsortium.jpg',
+      'r_obsidian.jpg'
     ]
 
     const imagePath = `images/${factionImages[currentSlide - 1]}`
@@ -126,7 +139,20 @@ function showFactionDetails(factionIndex) {
     'r_muaat.jpg',
     'r_creuss.jpg',
     'r_mentak.jpg',
-    'r_nekro.jpg'
+    'r_nekro.jpg',
+    'r_argent.jpg',
+    'r_empyrean.jpg',
+    'r_mahact.jpg',
+    'r_naaz.jpg',
+    'r_nomad.jpg',
+    'r_titans.jpg',
+    'r_vuilraith.jpg',
+    'r_keleres.jpg',
+    'r_bastion.jpg',
+    'r_deepwrought.jpg',
+    'r_crimson.jpg',
+    'r_ralnelconsortium.jpg',
+    'r_obsidian.jpg'
   ]
 
   modalImage.src = `images/${factionImages[factionIndex - 1]}`
