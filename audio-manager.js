@@ -34,32 +34,23 @@ class AudioManager {
     console.log('Audio system initialized')
   }
 
-  /*
-    * Loads audio for a specific slide index
-    * Returns a Promise that resolves when audio is ready to play
-  */
-
   loadAudioForSlide(slideIndex) {
-    // Slide 0 (intro) has no audio
     if (slideIndex === 0) {
       return Promise.resolve()
     }
 
     const audioIndex = slideIndex - 1
 
-    // Check if already failed - don't retry
     if (this.failedAudioFiles.has(audioIndex)) {
       console.warn(`Audio ${audioIndex} previously failed to load`)
       return Promise.reject(new Error('Audio file previously failed'))
     }
 
-    // Check if already loaded
     if (this.audioElements.has(audioIndex)) {
       console.log(`Audio ${audioIndex} already loaded`)
       return Promise.resolve()
     }
 
-    // Check if we have a file path for this slide
     if (!this.audioFiles.has(audioIndex)) {
       console.warn(`No audio file defined for slide ${slideIndex}`)
       return Promise.reject(new Error('No audio file defined'))
@@ -68,12 +59,10 @@ class AudioManager {
     console.log(`Loading audio for slide ${slideIndex}...`)
 
     return new Promise((resolve, reject) => {
-      // Create new audio element
       const audio = document.createElement('audio')
       audio.loop = true
       audio.volume = 0
 
-      // Set up success handler
       const handleLoaded = () => {
         console.log(`Audio ${audioIndex} loaded successfully`)
         this.audioElements.set(audioIndex, audio)
@@ -82,7 +71,6 @@ class AudioManager {
         resolve()
       }
 
-      // Set up error handler
       const handleError = (e) => {
         console.error(`Failed to load audio ${audioIndex}:`, e)
         this.failedAudioFiles.add(audioIndex)
@@ -91,11 +79,9 @@ class AudioManager {
         reject(new Error(`Failed to load audio file`))
       }
 
-      // Attach event listeners
       audio.addEventListener('loadeddata', handleLoaded)
       audio.addEventListener('error', handleError)
 
-      // Set up loop behavior
       audio.addEventListener('ended', () => {
         if (audio === this.currentAudio) {
           audio.currentTime = 0
@@ -105,17 +91,14 @@ class AudioManager {
         }
       })
 
-      // Start loading by setting the source
       const filePath = this.audioFiles.get(audioIndex)
       audio.src = filePath
 
-      // Append to container (keeps DOM organized)
       const container = document.querySelector('.audio-container')
       if (container) {
         container.appendChild(audio)
       }
 
-      // Trigger load
       audio.load()
     })
   }

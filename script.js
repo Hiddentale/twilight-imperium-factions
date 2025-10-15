@@ -13,7 +13,7 @@ function initializeIndicators() {
     indicator.className = 'indicator'
     if (i === 0) indicator.classList.add('active')
 
-    indicator.onclick = () => goToSlide(i)
+    //indicator.onclick = () => goToSlide(i)
     indicatorsContainer.appendChild(indicator)
   }
 }
@@ -61,7 +61,7 @@ function updateSlideDisplay() {
       'r_naaz.jpg',
       'r_nomad.jpg',
       'r_titans.jpg',
-      'r_vuilraith.jpg',
+      'r_cabal.jpg',
       'r_keleres.jpg',
       'r_bastion.jpg',
       'r_deepwrought.jpg',
@@ -146,7 +146,7 @@ function showFactionDetails(factionIndex) {
     'r_naaz.jpg',
     'r_nomad.jpg',
     'r_titans.jpg',
-    'r_vuilraith.jpg',
+    'r_cabal.jpg',
     'r_keleres.jpg',
     'r_bastion.jpg',
     'r_deepwrought.jpg',
@@ -165,7 +165,6 @@ function closeFactionDetails() {
   modal.classList.remove('active')
 }
 
-// Close modal when clicking outside the image
 document.addEventListener('click', (e) => {
   const modal = document.getElementById('faction-modal')
   if (e.target === modal) {
@@ -173,7 +172,6 @@ document.addEventListener('click', (e) => {
   }
 })
 
-// Close modal with Escape key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeFactionDetails()
