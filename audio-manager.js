@@ -107,16 +107,14 @@ class AudioManager {
    * Preloads audio for adjacent slides to ensure smooth transitions
    */
   preloadAdjacentSlides(currentSlideIndex) {
-    const totalSlides = this.audioFiles.size + 1 // +1 for intro slide
+    const totalSlides = this.audioFiles.size + 1
 
-    // Preload next slide
     if (currentSlideIndex < totalSlides - 1) {
       this.loadAudioForSlide(currentSlideIndex + 1)
         .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex + 1}`))
     }
 
-    // Preload previous slide
-    if (currentSlideIndex > 1) { // Skip intro (0) and first faction (1)
+    if (currentSlideIndex > 1) {
       this.loadAudioForSlide(currentSlideIndex - 1)
         .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex - 1}`))
     }
@@ -125,7 +123,7 @@ class AudioManager {
   async playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
 
-    if (slideIndex === 0) {
+    if (slideIndex === 0 || slideIndex === 18) {
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
@@ -170,7 +168,7 @@ class AudioManager {
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
     await new Promise(resolve => setTimeout(resolve, 1000));
-    this.preloadAdjacentSlides(slideIndex)
+    //this.preloadAdjacentSlides(slideIndex)
   }
 
   getState() {
