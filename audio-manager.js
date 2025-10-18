@@ -24,7 +24,8 @@ class AudioManager {
       [14, 'music/creuss.m4a'],
       [15, 'music/mentak.m4a'],
       [16, 'music/nekro.m4a'],
-      [17, 'music/argent.m4a']
+      [17, 'music/argent.m4a'],
+      [18, 'music/empyrean.m4a'],
     ])
 
     this.initialize()
@@ -124,7 +125,7 @@ class AudioManager {
   async playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
 
-    if (slideIndex === 0 || slideIndex === 19) {
+    if (slideIndex === 0 || slideIndex === 20) {
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
