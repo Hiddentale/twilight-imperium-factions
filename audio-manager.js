@@ -26,6 +26,7 @@ class AudioManager {
       [16, 'music/nekro.m4a'],
       [17, 'music/argent.m4a'],
       [18, 'music/empyrean.m4a'],
+      [19, 'music/mahact.m4a'],
     ])
 
     this.initialize()
@@ -125,7 +126,7 @@ class AudioManager {
   async playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
 
-    if (slideIndex === 0 || slideIndex === 20) {
+    if (slideIndex === 0 || slideIndex === 21) {
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
