@@ -13,7 +13,7 @@ function initializeIndicators() {
     indicator.className = 'indicator'
     if (i === 0) indicator.classList.add('active')
 
-    indicator.onclick = () => goToSlide(i)
+    //indicator.onclick = () => goToSlide(i)
     indicatorsContainer.appendChild(indicator)
   }
 }
@@ -54,7 +54,20 @@ function updateSlideDisplay() {
       'r_muaat.jpg',
       'r_creuss.jpg',
       'r_mentak.jpg',
-      'r_nekro.jpg'
+      'r_nekro.jpg',
+      'r_argent.jpg',
+      'r_empyrean.jpg',
+      'r_mahact.jpg',
+      'r_naaz.jpg',
+      'r_nomad.jpg',
+      'r_titans.jpg',
+      'r_cabal.jpg',
+      'r_keleres.jpg',
+      'r_bastion.jpg',
+      'r_deepwrought.jpg',
+      'r_crimson.jpg',
+      'r_ralnelconsortium.jpg',
+      'r_obsidian.jpg'
     ]
 
     const imagePath = `images/${factionImages[currentSlide - 1]}`
@@ -126,7 +139,20 @@ function showFactionDetails(factionIndex) {
     'r_muaat.jpg',
     'r_creuss.jpg',
     'r_mentak.jpg',
-    'r_nekro.jpg'
+    'r_nekro.jpg',
+    'r_argent.jpg',
+    'r_empyrean.jpg',
+    'r_mahact.jpg',
+    'r_naaz.jpg',
+    'r_nomad.jpg',
+    'r_titans.jpg',
+    'r_cabal.jpg',
+    'r_keleres.jpg',
+    'r_bastion.jpg',
+    'r_deepwrought.jpg',
+    'r_crimson.jpg',
+    'r_ralnelconsortium.jpg',
+    'r_obsidian.jpg'
   ]
 
   modalImage.src = `images/${factionImages[factionIndex - 1]}`
@@ -139,7 +165,6 @@ function closeFactionDetails() {
   modal.classList.remove('active')
 }
 
-// Close modal when clicking outside the image
 document.addEventListener('click', (e) => {
   const modal = document.getElementById('faction-modal')
   if (e.target === modal) {
@@ -147,7 +172,6 @@ document.addEventListener('click', (e) => {
   }
 })
 
-// Close modal with Escape key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeFactionDetails()

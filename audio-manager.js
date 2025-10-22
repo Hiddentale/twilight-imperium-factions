@@ -23,7 +23,10 @@ class AudioManager {
       [13, 'music/muaat.m4a'],
       [14, 'music/creuss.m4a'],
       [15, 'music/mentak.m4a'],
-      [16, 'music/nekro.m4a']
+      [16, 'music/nekro.m4a'],
+      [17, 'music/argent.m4a'],
+      [18, 'music/empyrean.m4a'],
+      [19, 'music/mahact.m4a'],
     ])
 
     this.initialize()
@@ -34,32 +37,23 @@ class AudioManager {
     console.log('Audio system initialized')
   }
 
-  /*
-    * Loads audio for a specific slide index
-    * Returns a Promise that resolves when audio is ready to play
-  */
-
   loadAudioForSlide(slideIndex) {
-    // Slide 0 (intro) has no audio
     if (slideIndex === 0) {
       return Promise.resolve()
     }
 
     const audioIndex = slideIndex - 1
 
-    // Check if already failed - don't retry
     if (this.failedAudioFiles.has(audioIndex)) {
       console.warn(`Audio ${audioIndex} previously failed to load`)
       return Promise.reject(new Error('Audio file previously failed'))
     }
 
-    // Check if already loaded
     if (this.audioElements.has(audioIndex)) {
       console.log(`Audio ${audioIndex} already loaded`)
       return Promise.resolve()
     }
 
-    // Check if we have a file path for this slide
     if (!this.audioFiles.has(audioIndex)) {
       console.warn(`No audio file defined for slide ${slideIndex}`)
       return Promise.reject(new Error('No audio file defined'))
@@ -68,12 +62,10 @@ class AudioManager {
     console.log(`Loading audio for slide ${slideIndex}...`)
 
     return new Promise((resolve, reject) => {
-      // Create new audio element
       const audio = document.createElement('audio')
       audio.loop = true
       audio.volume = 0
 
-      // Set up success handler
       const handleLoaded = () => {
         console.log(`Audio ${audioIndex} loaded successfully`)
         this.audioElements.set(audioIndex, audio)
@@ -82,7 +74,6 @@ class AudioManager {
         resolve()
       }
 
-      // Set up error handler
       const handleError = (e) => {
         console.error(`Failed to load audio ${audioIndex}:`, e)
         this.failedAudioFiles.add(audioIndex)
@@ -91,11 +82,9 @@ class AudioManager {
         reject(new Error(`Failed to load audio file`))
       }
 
-      // Attach event listeners
       audio.addEventListener('loadeddata', handleLoaded)
       audio.addEventListener('error', handleError)
 
-      // Set up loop behavior
       audio.addEventListener('ended', () => {
         if (audio === this.currentAudio) {
           audio.currentTime = 0
@@ -105,17 +94,14 @@ class AudioManager {
         }
       })
 
-      // Start loading by setting the source
       const filePath = this.audioFiles.get(audioIndex)
       audio.src = filePath
 
-      // Append to container (keeps DOM organized)
       const container = document.querySelector('.audio-container')
       if (container) {
         container.appendChild(audio)
       }
 
-      // Trigger load
       audio.load()
     })
   }
@@ -124,16 +110,14 @@ class AudioManager {
    * Preloads audio for adjacent slides to ensure smooth transitions
    */
   preloadAdjacentSlides(currentSlideIndex) {
-    const totalSlides = this.audioFiles.size + 1 // +1 for intro slide
+    const totalSlides = this.audioFiles.size + 1
 
-    // Preload next slide
     if (currentSlideIndex < totalSlides - 1) {
       this.loadAudioForSlide(currentSlideIndex + 1)
         .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex + 1}`))
     }
 
-    // Preload previous slide
-    if (currentSlideIndex > 1) { // Skip intro (0) and first faction (1)
+    if (currentSlideIndex > 1) {
       this.loadAudioForSlide(currentSlideIndex - 1)
         .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex - 1}`))
     }
@@ -142,7 +126,7 @@ class AudioManager {
   async playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
 
-    if (slideIndex === 0) {
+    if (slideIndex === 0 || slideIndex === 21) {
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
@@ -187,7 +171,7 @@ class AudioManager {
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
     await new Promise(resolve => setTimeout(resolve, 1000));
-    this.preloadAdjacentSlides(slideIndex)
+    //this.preloadAdjacentSlides(slideIndex)
   }
 
   getState() {
