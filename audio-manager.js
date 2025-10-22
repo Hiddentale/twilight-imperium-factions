@@ -6,27 +6,29 @@ class AudioManager {
     this.audioEnabled = false
     this.failedAudioFiles = new Set()
 
+    const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
+
     this.audioFiles = new Map([
-      [0, 'music/letnev.m4a'],
-      [1, 'music/sol.m4a'],
-      [2, 'music/jolnar.m4a'],
-      [3, 'music/l1z1x.m4a'],
-      [4, 'music/xxcha.m4a'],
-      [5, 'music/yin.m4a'],
-      [6, 'music/yssaril.m4a'],
-      [7, 'music/hacan.m4a'],
-      [8, 'music/saar.m4a'],
-      [9, 'music/naalu.m4a'],
-      [10, 'music/sardakk.m4a'],
-      [11, 'music/winnu.m4a'],
-      [12, 'music/arborec.m4a'],
-      [13, 'music/muaat.m4a'],
-      [14, 'music/creuss.m4a'],
-      [15, 'music/mentak.m4a'],
-      [16, 'music/nekro.m4a'],
-      [17, 'music/argent.m4a'],
-      [18, 'music/empyrean.m4a'],
-      [19, 'music/mahact.m4a'],
+      [0, `${CDN_BASE_URL}/letnev.m4a`],
+      [1, `${CDN_BASE_URL}/sol.m4a`],
+      [2, `${CDN_BASE_URL}/jolnar.m4a`],
+      [3, `${CDN_BASE_URL}/l1z1x.m4a`],
+      [4, `${CDN_BASE_URL}/xxcha.m4a`],
+      [5, `${CDN_BASE_URL}/yin.m4a`],
+      [6, `${CDN_BASE_URL}/yssaril.m4a`],
+      [7, `${CDN_BASE_URL}/hacan.m4a`],
+      [8, `${CDN_BASE_URL}/saar.m4a`],
+      [9, `${CDN_BASE_URL}/naalu.m4a`],
+      [10, `${CDN_BASE_URL}/sardakk.m4a`],
+      [11, `${CDN_BASE_URL}/winnu.m4a`],
+      [12, `${CDN_BASE_URL}/arborec.m4a`],
+      [13, `${CDN_BASE_URL}/muaat.m4a`],
+      [14, `${CDN_BASE_URL}/creuss.m4a`],
+      [15, `${CDN_BASE_URL}/mentak.m4a`],
+      [16, `${CDN_BASE_URL}/nekro.m4a`],
+      [17, `${CDN_BASE_URL}/argent.m4a`],
+      [18, `${CDN_BASE_URL}/empyrean.m4a`],
+      [19, `${CDN_BASE_URL}/mahact.m4a`],
     ])
 
     this.initialize()
@@ -106,9 +108,6 @@ class AudioManager {
     })
   }
 
-  /**
-   * Preloads audio for adjacent slides to ensure smooth transitions
-   */
   preloadAdjacentSlides(currentSlideIndex) {
     const totalSlides = this.audioFiles.size + 1
 
@@ -171,7 +170,7 @@ class AudioManager {
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
     await new Promise(resolve => setTimeout(resolve, 1000));
-    //this.preloadAdjacentSlides(slideIndex)
+    this.preloadAdjacentSlides(slideIndex)
   }
 
   getState() {

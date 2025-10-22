@@ -13,7 +13,7 @@ function initializeIndicators() {
     indicator.className = 'indicator'
     if (i === 0) indicator.classList.add('active')
 
-    //indicator.onclick = () => goToSlide(i)
+    indicator.onclick = () => goToSlide(i)
     indicatorsContainer.appendChild(indicator)
   }
 }
