@@ -3,6 +3,7 @@ const slides = document.querySelectorAll('.slide')
 const totalSlides = slides.length
 
 const audioManager = new AudioManager()
+let initialized = false
 
 function initializeIndicators() {
   const indicatorsContainer = document.getElementById('indicators')
@@ -79,13 +80,6 @@ function updateSlideDisplay() {
     .catch(error => console.warn('Audio playback error:', error))
 }
 
-
-try {
-  audioManager.playSlideAudio(currentSlide)
-} catch (error) {
-  console.warn('Audio playback error:', error)
-}
-
 function changeSlide(direction) {
   const newSlide = currentSlide + direction
   if (newSlide >= 0 && newSlide < totalSlides) {
@@ -106,16 +100,21 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') changeSlide(1)
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
+  if (initialized) {
+    console.log('Already initialized, skipping')
+  }
+  initialized = true
+
   initializeIndicators()
   updateSlideDisplay()
-
   console.log('Audio Manager State:', audioManager.getState())
-})
+}
 
-if (document.readyState !== 'loading') {
-  initializeIndicators()
-  updateSlideDisplay()
+if (document.readyState == 'loading') {
+  document.addEventListener('DOMContentLoaded', init)
+} else {
+  init()
 }
 
 function showFactionDetails(factionIndex) {

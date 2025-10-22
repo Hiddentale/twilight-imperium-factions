@@ -3,6 +3,7 @@ class AudioManager {
     this.currentSlide = null
     this.currentAudio = null
     this.audioElements = new Map()
+    this.loadingAudio = new Map()
     this.audioEnabled = false
     this.failedAudioFiles = new Set()
 
@@ -56,6 +57,11 @@ class AudioManager {
       return Promise.resolve()
     }
 
+    if (this.loadingAudio.has(audioIndex)) {
+      console.log('Audio ${audioIndex} already loading, reusing promise')
+      return this.loadingAudio.get(audioIndex)
+    }
+
     if (!this.audioFiles.has(audioIndex)) {
       console.warn(`No audio file defined for slide ${slideIndex}`)
       return Promise.reject(new Error('No audio file defined'))
@@ -63,15 +69,17 @@ class AudioManager {
 
     console.log(`Loading audio for slide ${slideIndex}...`)
 
-    return new Promise((resolve, reject) => {
+    const loadPromise = new Promise((resolve, reject) => {
       const audio = document.createElement('audio')
       audio.loop = true
       audio.volume = 0
+      audio.preload = 'auto'
 
       const handleLoaded = () => {
         console.log(`Audio ${audioIndex} loaded successfully`)
         this.audioElements.set(audioIndex, audio)
-        audio.removeEventListener('loadeddata', handleLoaded)
+        this.loadingAudio.delete(audioIndex)
+        audio.removeEventListener('canplaythrough', handleLoaded)
         audio.removeEventListener('error', handleError)
         resolve()
       }
@@ -79,13 +87,14 @@ class AudioManager {
       const handleError = (e) => {
         console.error(`Failed to load audio ${audioIndex}:`, e)
         this.failedAudioFiles.add(audioIndex)
-        audio.removeEventListener('loadeddata', handleLoaded)
+        this.loadingAudio.delete(audioIndex)
+        audio.removeEventListener('canplaythrough', handleLoaded)
         audio.removeEventListener('error', handleError)
         reject(new Error(`Failed to load audio file`))
       }
 
-      audio.addEventListener('loadeddata', handleLoaded)
-      audio.addEventListener('error', handleError)
+      audio.addEventListener('canplaythrough', handleLoaded, { once: true })
+      audio.addEventListener('error', handleError, { once: true })
 
       audio.addEventListener('ended', () => {
         if (audio === this.currentAudio) {
@@ -96,16 +105,15 @@ class AudioManager {
         }
       })
 
-      const filePath = this.audioFiles.get(audioIndex)
-      audio.src = filePath
+      audio.src = this.audioFiles.get(audioIndex)
 
       const container = document.querySelector('.audio-container')
       if (container) {
         container.appendChild(audio)
       }
-
-      audio.load()
     })
+    this.loadingAudio.set(audioIndex, loadPromise)
+    return loadPromise
   }
 
   preloadAdjacentSlides(currentSlideIndex) {
@@ -169,6 +177,7 @@ class AudioManager {
     newAudio.currentTime = newAudio.duration * 0.3
     newAudio.play().catch(e => console.warn('Audio play failed:', e))
     this.currentAudio = newAudio
+
     await new Promise(resolve => setTimeout(resolve, 1000));
     this.preloadAdjacentSlides(slideIndex)
   }
@@ -179,6 +188,7 @@ class AudioManager {
       currentSlide: this.currentSlide,
       totalAudioFiles: this.audioElements.size,
       loadedAudioFiles: this.audioElements.size,
+      loadingAudioFiles: this.loadingAudio.size,
       failedAudioFiles: Array.from(this.failedAudioFiles),
       hasErrors: this.failedAudioFiles.size > 0
     }
