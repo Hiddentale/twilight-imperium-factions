@@ -6,6 +6,8 @@ class AudioManager {
     this.loadingAudio = new Map()
     this.audioEnabled = false
     this.failedAudioFiles = new Set()
+    this.isMobile = this.detectMobile()
+    this.userInteracted = false
 
     const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
 
@@ -35,9 +37,90 @@ class AudioManager {
     this.initialize()
   }
 
+  detectMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  }
+
   initialize() {
-    this.audioEnabled = true
-    console.log('Audio system initialized')
+    if (this.isMobile) {
+      this.createAudioEnableButtion()
+    } else {
+      this.audioEnabled = true
+      console.log('Audio system initialized')
+    }
+  }
+
+  createAudioEnableButton() {
+    const button = document.createElement('button')
+    button.id = 'enable-audio-btn'
+    button.textContent = 'Enable Audio'
+    button.style.cssText = `
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 1000;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #0a0d1a;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      font-family: 'Orbitron', monospace;
+      transition: all 0.3s ease;
+    `
+
+    button.onclick = () => {
+      this.enableAudio()
+      button.remove()
+    }
+
+    document.body.appendChild(button)
+  }
+
+  async enableAudio() {
+    const dummyAudio = document.createElement('audio')
+    dummyAudio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQKAAAAAAAAA4RWQ3mSAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+xDEKYPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA='
+
+    try {
+      await dummyAudio.play()
+      dummyAudio.pause()
+      this.audioEnabled = true
+      this.userInteracted = true
+      console.log('Audio enabled on mobile')
+
+      this.showNotification('Audio Enabled ✓')
+    } catch (e) {
+      console.warn('Could not enable audio:', e)
+    }
+  }
+
+  showNotification(message) {
+    const notification = document.createElement('div')
+    notification.textContent = message
+    notification.style.cssText = `
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(76, 175, 80, 0.95);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
+    `
+
+    document.body.appendChild(notification)
+
+    setTimeout(() => {
+      notification.style.animation = 'fadeOut 0.3s ease'
+      setTimeout(() => notification.remove(), 300)
+    }, 2000)
   }
 
   loadAudioForSlide(slideIndex) {
