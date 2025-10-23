@@ -37,16 +37,21 @@ class AudioManager {
     this.initialize()
   }
 
-  detectMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-  }
+  async initialize() {
+    const testAudio = document.createElement('audio');
+    testAudio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQKAAAAAAAAA4RWQ3mSAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+xDEKYPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
+    testAudio.volume = 0.01;
 
-  initialize() {
-    if (this.isMobile) {
-      this.createAudioEnableButtion()
-    } else {
-      this.audioEnabled = true
-      console.log('Audio system initialized')
+    try {
+      await testAudio.play();
+      testAudio.pause();
+      this.audioEnabled = true;
+      this.isMobile = false;
+      console.log('Audio autoplay supported - no button needed');
+    } catch (e) {
+      this.isMobile = true;
+      console.log('Audio autoplay blocked - showing enable button');
+      this.createAudioEnableButton();
     }
   }
 
@@ -91,36 +96,9 @@ class AudioManager {
       this.userInteracted = true
       console.log('Audio enabled on mobile')
 
-      this.showNotification('Audio Enabled ✓')
     } catch (e) {
       console.warn('Could not enable audio:', e)
     }
-  }
-
-  showNotification(message) {
-    const notification = document.createElement('div')
-    notification.textContent = message
-    notification.style.cssText = `
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(76, 175, 80, 0.95);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      animation: slideIn 0.3s ease;
-    `
-
-    document.body.appendChild(notification)
-
-    setTimeout(() => {
-      notification.style.animation = 'fadeOut 0.3s ease'
-      setTimeout(() => notification.remove(), 300)
-    }, 2000)
   }
 
   loadAudioForSlide(slideIndex) {
@@ -216,6 +194,11 @@ class AudioManager {
   async playSlideAudio(slideIndex) {
     if (!this.audioEnabled) return
 
+    if (this.isMobile && !this.userInteracted) {
+      console.log('Waiting for user interaction on mobile before playing audio')
+      return
+    }
+
     if (slideIndex === 0 || slideIndex === 21) {
       if (this.currentAudio) {
         this.currentAudio.pause()
@@ -273,7 +256,9 @@ class AudioManager {
       loadedAudioFiles: this.audioElements.size,
       loadingAudioFiles: this.loadingAudio.size,
       failedAudioFiles: Array.from(this.failedAudioFiles),
-      hasErrors: this.failedAudioFiles.size > 0
+      hasErrors: this.failedAudioFiles.size > 0,
+      isMobile: this.isMobile,
+      userInteracted: this.userInteracted,
     }
   }
 }
