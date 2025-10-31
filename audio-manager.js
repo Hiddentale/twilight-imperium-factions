@@ -6,7 +6,7 @@ class AudioManager {
     this.loadingAudio = new Map()
     this.audioEnabled = false
     this.failedAudioFiles = new Set()
-    this.isMobile = this.detectMobile()
+    this.isMobile = false
     this.userInteracted = false
 
     const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
@@ -38,24 +38,36 @@ class AudioManager {
   }
 
   async initialize() {
-    const testAudio = document.createElement('audio');
-    testAudio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQKAAAAAAAAA4RWQ3mSAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+xDEKYPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
-    testAudio.volume = 0.01;
+    const userAgent = navigator.userAgent.toLowerCase()
+    const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)
 
-    try {
-      await testAudio.play();
-      testAudio.pause();
-      this.audioEnabled = true;
-      this.isMobile = false;
-      console.log('Audio autoplay supported - no button needed');
-    } catch (e) {
-      this.isMobile = true;
-      console.log('Audio autoplay blocked - showing enable button');
-      this.createAudioEnableButton();
+    if (isMobileDevice) {
+      this.isMobile = true
+      console.log('Mobile device detected - showing enable button')
+      this.createAudioEnableButton()
+    } else {
+      const testAudio = new Audio()
+      testAudio.volume = 0.01
+      testAudio.src = this.audioFiles.get(0) || this.audioFiles.values().next().value
+
+      try {
+        await testAudio.play()
+        testAudio.pause()
+        testAudio.src = ''
+        this.audioEnabled = true
+        this.isMobile = false
+        console.log('Audio autoplay supported - no button needed')
+      } catch (e) {
+        this.isMobile = true
+        console.log('Audio autoplay blocked - showing enable button')
+        this.createAudioEnableButton()
+      }
     }
   }
 
   createAudioEnableButton() {
+    if (document.getElementById('enable-audio-btn')) return
+
     const button = document.createElement('button')
     button.id = 'enable-audio-btn'
     button.textContent = 'Enable Audio'
@@ -77,28 +89,18 @@ class AudioManager {
       transition: all 0.3s ease;
     `
 
-    button.onclick = () => {
-      this.enableAudio()
+    button.addEventListener('click', async () => {
+      await this.enableAudio()
       button.remove()
-    }
+    })
 
     document.body.appendChild(button)
   }
 
   async enableAudio() {
-    const dummyAudio = document.createElement('audio')
-    dummyAudio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQKAAAAAAAAA4RWQ3mSAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+xDEKYPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA='
-
-    try {
-      await dummyAudio.play()
-      dummyAudio.pause()
-      this.audioEnabled = true
-      this.userInteracted = true
-      console.log('Audio enabled on mobile')
-
-    } catch (e) {
-      console.warn('Could not enable audio:', e)
-    }
+    this.audioEnabled = true
+    this.userInteracted = true
+    console.log('Audio enabled by user interaction')
   }
 
   loadAudioForSlide(slideIndex) {
@@ -240,12 +242,18 @@ class AudioManager {
     }
 
     newAudio.volume = 0.3
-    newAudio.currentTime = newAudio.duration * 0.3
-    newAudio.play().catch(e => console.warn('Audio play failed:', e))
-    this.currentAudio = newAudio
+    newAudio.currentTime = Math.min(newAudio.duration * 0.3, newAudio.duration)
+    try {
+      await newAudio.play()
+      this.currentAudio = newAudio
+      console.log(`Playing audio for slide ${slideIndex}`)
+    } catch (e) {
+      console.warn('Audio play failed:', e)
+    }
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    this.preloadAdjacentSlides(slideIndex)
+    setTimeout(() => {
+      this.preloadAdjacentSlides(slideIndex)
+    }, 1000)
   }
 
   getState() {

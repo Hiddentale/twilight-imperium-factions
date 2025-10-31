@@ -108,6 +108,19 @@ function init() {
 
   initializeIndicators()
   updateSlideDisplay()
+
+  const prevBtn = document.getElementById('prevBtn')
+  const nextBtn = document.getElementById('nextBtn')
+  if (prevBtn) prevBtn.addEventListener('click', () => changeSlide(-1))
+  if (nextBtn) nextBtn.addEventListener('click', () => changeSlide(1))
+
+  const modalClose = document.querySelector('.modal-close')
+  if (modalClose) modalClose.addEventListener('click', closeFactionDetails)
+
+  document.querySelectorAll('.view-details-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => showFactionDetails(index + 1))
+  })
+
   console.log('Audio Manager State:', audioManager.getState())
 }
 
