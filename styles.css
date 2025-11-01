@@ -159,6 +159,21 @@ body {
     overflow: hidden;
 }
 
+.faction-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.faction-image>div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .faction-image::before {
     content: '';
     position: absolute;
@@ -206,6 +221,8 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: var(--space-4);
+    align-self: flex-start;
+    width: fit-content;
 }
 
 .beginner {
@@ -615,13 +632,6 @@ body {
     .faction-image {
         width: 200px;
         height: 200px;
-    }
-
-    .faction-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
     }
 
     .faction-title {

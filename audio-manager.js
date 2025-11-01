@@ -101,6 +101,10 @@ class AudioManager {
     this.audioEnabled = true
     this.userInteracted = true
     console.log('Audio enabled by user interaction')
+
+    if (this.currentSlide !== null && this.currentSlide > 0) {
+      await this.playSlideAudio(this.currentSlide)
+    }
   }
 
   loadAudioForSlide(slideIndex) {
@@ -194,6 +198,8 @@ class AudioManager {
   }
 
   async playSlideAudio(slideIndex) {
+    this.currentSlide = slideIndex
+
     if (!this.audioEnabled) return
 
     if (this.isMobile && !this.userInteracted) {
