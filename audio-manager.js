@@ -8,6 +8,8 @@ class AudioManager {
     this.failedAudioFiles = new Set()
     this.isMobile = false
     this.userInteracted = false
+    this.streamingMode = false
+    this.streamingButton = null
 
     const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
 
@@ -70,31 +72,20 @@ class AudioManager {
 
     const button = document.createElement('button')
     button.id = 'enable-audio-btn'
+    button.className = 'audio-control-btn audio-enable-btn'
     button.textContent = 'Enable Audio'
-    button.style.cssText = `
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      z-index: 1000;
-      background: linear-gradient(135deg, #ffd700, #ffed4e);
-      color: #0a0d1a;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-      font-family: 'Orbitron', monospace;
-      transition: all 0.3s ease;
-    `
 
     button.addEventListener('click', async () => {
       await this.enableAudio()
       button.remove()
     })
 
-    document.body.appendChild(button)
+    const header = document.querySelector('.header')
+    if (header) {
+      header.appendChild(button)
+    } else {
+      document.body.appendChild(button)
+    }
   }
 
   async enableAudio() {
@@ -102,8 +93,147 @@ class AudioManager {
     this.userInteracted = true
     console.log('Audio enabled by user interaction')
 
+    if (!this.streamingButton) {
+      this.createStreamingButton()
+      this.createSkipButton()
+    }
+
     if (this.currentSlide !== null && this.currentSlide > 0) {
       await this.playSlideAudio(this.currentSlide)
+    }
+  }
+
+  async toggleAudio(button) {
+    if (this.audioEnabled) {
+      this.audioEnabled = false
+      if (this.currentAudio) {
+        this.currentAudio.pause()
+        this.currentAudio.volume = 0
+      }
+      button.textContent = 'Enable Audio'
+      console.log('Audio disabled by user')
+    } else {
+      await this.enableAudio()
+      button.textContent = 'Disable Audio'
+    }
+  }
+
+  createStreamingButton() {
+    if (document.getElementById('streaming-audio-btn')) return
+
+    const button = document.createElement('button')
+    button.id = 'streaming-audio-btn'
+    button.className = 'audio-control-btn streaming-audio-btn'
+    button.textContent = 'Random Music Mode'
+
+    button.addEventListener('click', () => this.toggleStreaming(button))
+    this.streamingButton = button
+
+    const header = document.querySelector('.header')
+    if (header) {
+      header.appendChild(button)
+    }
+  }
+
+  createSkipButton() {
+    if (document.getElementById('skip-audio-btn')) return
+
+    const button = document.createElement('button')
+    button.id = 'skip-audio-btn'
+    button.className = 'audio-control-btn skip-audio-btn'
+    button.textContent = 'Skip current audio'
+    button.style.display = 'none'
+
+    button.addEventListener('click', () => {
+      if (this.streamingMode) {
+        this.playRandomMusic()
+      }
+    })
+
+    const header = document.querySelector('.header')
+    if (header) {
+      header.appendChild(button)
+    }
+  }
+
+  async toggleStreaming(button) {
+    const skipButton = document.getElementById('skip-audio-btn')
+
+    if (this.streamingMode) {
+      this.streamingMode = false
+      button.textContent = 'Random Music'
+      button.classList.remove('streaming-active')
+
+      if (skipButton) skipButton.style.display = 'none'
+
+      if (this.currentAudio) {
+        this.currentAudio.pause()
+        this.currentAudio.volume = 0
+        this.currentAudio = null
+      }
+      console.log('Music streaming disabled')
+
+    } else {
+      if (!this.audioEnabled) {
+        this.audioEnabled = true
+        this.userInteracted = true
+      }
+
+      this.streamingMode = true
+      button.textContent = 'Stop Random Music'
+      button.classList.add('streaming-active')
+
+      if (skipButton) skipButton.style.display = 'block'
+
+      await this.playRandomMusic()
+      console.log('Music streaming enabled')
+    }
+  }
+
+  async playRandomMusic() {
+    if (!this.streamingMode) return
+
+    const randomIndex = Math.floor(Math.random() * this.audioFiles.size)
+    const randomSlide = randomIndex + 1
+
+    console.log(`Streaming: Playing faction ${randomSlide}`)
+
+    try {
+      await this.loadAudioForSlide(randomSlide)
+    } catch (e) {
+      console.error(`Could not load audio for streaming:`, e)
+      setTimeout(() => this.playRandomMusic(), 1000)
+      return
+    }
+
+    this.audioElements.forEach(audio => {
+      audio.pause()
+      audio.currentTime = 0
+      audio.volume = 0
+    })
+
+    const newAudio = this.audioElements.get(randomIndex)
+    if (!newAudio) {
+      setTimeout(() => this.playRandomMusic(), 1000)
+      return
+    }
+
+    newAudio.loop = false
+    newAudio.volume = 0.3
+    newAudio.currentTime = 0
+
+    newAudio.onended = () => {
+      if (this.streamingMode) {
+        this.playRandomMusic()
+      }
+    }
+
+    try {
+      await newAudio.play()
+      this.currentAudio = newAudio
+    } catch (e) {
+      console.warn('Streaming audio play failed:', e)
+      setTimeout(() => this.playRandomMusic(), 1000)
     }
   }
 
@@ -199,6 +329,8 @@ class AudioManager {
 
   async playSlideAudio(slideIndex) {
     this.currentSlide = slideIndex
+
+    if (this.streamingMode) return
 
     if (!this.audioEnabled) return
 
