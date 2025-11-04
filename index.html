@@ -28,22 +28,44 @@
                     galactic conquest. This guide will help you choose the perfect faction for your first game.</p>
                 <div class="intro-actions">
                     <div class="random-faction-container">
-                        <button class="intro-btn random-faction-btn" id="randomFactionBtn">
+                        <button class="intro-btn random-faction-btn" id="randomFactionBtn"
+                            aria-label="Select random faction">
                             Random Faction
                         </button>
                         <div class="difficulty-selector">
-                            <button class="difficulty-control" id="difficultyDown">−</button>
-                            <div class="difficulty-display">
+                            <button class="difficulty-control" id="difficultyDown"
+                                aria-label="Decrease difficulty">−</button>
+                            <div class="difficulty-display" role="meter" aria-label="Difficulty level" aria-valuenow="1"
+                                aria-valuemin="1" aria-valuemax="4">
                                 <div class="difficulty-bar" data-level="1"></div>
                                 <div class="difficulty-bar" data-level="2"></div>
                                 <div class="difficulty-bar" data-level="3"></div>
                                 <div class="difficulty-bar" data-level="4"></div>
                             </div>
-                            <button class="difficulty-control" id="difficultyUp">+</button>
+                            <button class="difficulty-control" id="difficultyUp"
+                                aria-label="Increase difficulty">+</button>
                         </div>
                         <div class="difficulty-label" id="difficultyLabel">Beginner</div>
                     </div>
 
+                </div>
+                <div class="expansion-container">
+                    <div class="expansion-title">Expansions</div>
+                    <div class="expansion-title">for random picking</div>
+                    <div class="expansion-selector">
+                        <div class="expansion-bar" data-expansion="pok" data-active="false" role="button"
+                            aria-label="Prophecy of Kings expansion" aria-pressed="false" tabindex="0">
+                            <div class="expansion-indicator"></div>
+                        </div>
+                        <div class="expansion-bar" data-expansion="thunder" data-active="false" role="button"
+                            aria-label="Thunder's Edge expansion" aria-pressed="false" tabindex="0">
+                            <div class="expansion-indicator"></div>
+                        </div>
+                    </div>
+                    <div class="expansion-labels">
+                        <span class="expansion-label pok">PoK</span>
+                        <span class="expansion-label thunder">TE</span>
+                    </div>
                 </div>
                 <div class="keyboard-hint">
                     <span>Hint: You can use arrow keys to navigate</span>
