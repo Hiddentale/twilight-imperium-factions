@@ -49,9 +49,9 @@ const CONSTANTS = {
     'r_yin.jpg', 'r_yssaril.jpg', 'r_hacan.jpg', 'r_saar.jpg', 'r_naalu.jpg',
     'r_norr.jpg', 'r_winnu.jpg', 'r_arborec.jpg', 'r_muaat.jpg', 'r_creuss.jpg',
     'r_mentak.jpg', 'r_nekro.jpg', 'r_argent.jpg', 'r_empyrean.jpg', 'r_mahact.jpg',
-    'r_naaz.jpg', 'r_nomad.jpg', 'r_titans.jpg', 'r_cabal.jpg', 'r_keleres.jpg',
-    'r_bastion.jpg', 'r_deepwrought.jpg', 'r_crimson.jpg', 'r_ralnelconsortium.jpg',
-    'r_obsidian.jpg'
+    'r_naazrokha.jpg', 'r_nomad.jpg', 'r_ul.jpg', 'r_vuilraith.jpg', 'r_keleres.jpg',
+    'r_bastion.jpg', 'r_deepwrought.jpg', 'r_rebellion.jpg', 'r_ralnel.jpg',
+    'r_firmanent.jpg'
   ],
 
   DEBOUNCE_DELAY: 150,
