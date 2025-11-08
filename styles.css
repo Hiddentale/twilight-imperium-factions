@@ -97,10 +97,11 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
     gap: var(--space-4);
-    flex-wrap: wrap;
+    align-items: center;
 }
 
 .header h1 {
@@ -109,6 +110,26 @@ body {
     font-weight: 700;
     color: var(--accent-primary);
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.header-nav-controls {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.header-nav-controls .nav-btn {
+    flex-shrink: 0;
+}
+
+.header-nav-controls .faction-dropdown {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 /* ============================================
@@ -252,6 +273,14 @@ body {
 .audio-control-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+.audio-controls-container {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    gap: var(--space-2);
+    margin-left: auto;
 }
 
 #enable-audio-btn {
@@ -1079,13 +1108,13 @@ body {
    ============================================ */
 @media (max-width: 768px) {
     .header {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: var(--space-3) var(--space-4);
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
     }
 
     .header h1 {
         font-size: var(--text-lg);
+        grid-column: 1;
     }
 
     .audio-control-btn {

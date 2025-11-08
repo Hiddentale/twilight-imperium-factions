@@ -11,20 +11,26 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Twilight Imperium 4th Edition Faction Guide</h1>
-            <select id="factionJump" class="faction-dropdown">
-                <option value="">Jump to Faction...</option>
-            </select>
-            <div class="slide-counter">
-                <span id="current-slide">1</span> / <span id="total-slides">18</span>
+            <div class="header-top-row">
+                <h1>Twilight Imperium 4th Edition Faction Guide</h1>
+                <div class="audio-controls-container">
+                    <!-- Audio buttons will be inserted here by JavaScript -->
+                </div>
+            </div>
+            <div class="header-nav-row">
+                <button class="nav-btn" id="prevBtn">← Previous</button>
+                <select id="factionJump" class="faction-dropdown">
+                    <option value="">Jump to Faction...</option>
+                </select>
+                <button class="nav-btn" id="nextBtn">Next →</button>
             </div>
         </div>
-
         <div class="main-content">
             <div class="audio-container" style="display: none;"></div>
             <div class="slide active intro-slide">
                 <h2>Choose Your Galactic Destiny</h2>
-                <p>Welcome to Twilight Imperium 4th Edition! Each faction offers a completely unique way to experience
+                <p>Welcome to Twilight Imperium 4th Edition! Each faction offers a completely unique way to
+                    experience
                     galactic conquest. This guide will help you choose the perfect faction for your first game.</p>
                 <div class="intro-actions">
                     <div class="random-faction-container">
@@ -50,15 +56,14 @@
 
                 </div>
                 <div class="expansion-container">
-                    <div class="expansion-title">Expansions</div>
-                    <div class="expansion-title">for random picking</div>
+                    <div class="expansion-title">Disable Expansions</div>
                     <div class="expansion-selector">
-                        <div class="expansion-bar" data-expansion="pok" data-active="false" role="button"
+                        <div class="expansion-bar" data-expansion="pok" data-active="true" role="button"
                             aria-label="Prophecy of Kings expansion" aria-pressed="false" tabindex="0">
                             <div class="expansion-indicator"></div>
                         </div>
-                        <div class="expansion-bar" data-expansion="thunder" data-active="false" role="button"
-                            aria-label="Thunder's Edge expansion" aria-pressed="false" tabindex="0">
+                        <div class="expansion-bar" data-expansion="thunder" data-active="true" role="button"
+                            aria-label="Thunder's Edge expansion" aria-pressed="true" tabindex="0">
                             <div class="expansion-indicator"></div>
                         </div>
                     </div>
@@ -68,7 +73,7 @@
                     </div>
                 </div>
                 <div class="keyboard-hint">
-                    <span>Hint: You can use arrow keys to navigate</span>
+                    <span>You can use arrow keys to navigate</span>
                 </div>
             </div>
 
@@ -80,7 +85,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Barony of Letnev</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Space vampires with the galaxy's most powerful military aristocracy,
+                        <p class="faction-identity">Space vampires with the galaxy's most powerful military
+                            aristocracy,
                             commanding through overwhelming firepower and massive fleets.</p>
                     </div>
                     <button class="view-details-btn" onclick="showFactionDetails(1)">
@@ -110,7 +116,8 @@
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Begin with advanced technologies (Plasma Scoring + Antimass Deflectors) and enough resources
+                        <p>Begin with advanced technologies (Plasma Scoring + Antimass Deflectors) and enough
+                            resources
                             to research 2 more technologies in round 1 - something no other faction can match.</p>
                     </div>
 
@@ -157,7 +164,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Get an extra action every round. Instantly deploy 2 infantry to any planet you control, and
+                        <p>Get an extra action every round. Instantly deploy 2 infantry to any planet you control,
+                            and
                             your soldiers are stronger than normal infantry. Your flagship generates free troops
                             automatically.</p>
                     </div>
@@ -176,7 +184,8 @@
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Good balanced starting position with Neural Motivator and Antimass Deflectors technologies,
+                        <p>Good balanced starting position with Neural Motivator and Antimass Deflectors
+                            technologies,
                             plus 5 infantry for strong ground presence.</p>
                     </div>
 
@@ -211,7 +220,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Universities of Jol-Nar</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Brilliant aquatic academics who pursue knowledge above warfare - the
+                        <p class="faction-identity">Brilliant aquatic academics who pursue knowledge above warfare -
+                            the
                             galaxy's premier researchers and technology developers.</p>
                     </div>
                     <button class="view-details-btn">
@@ -222,22 +232,27 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>When others research technology, you can also research without paying a token. You can skip
+                        <p>When others research technology, you can also research without paying a token. You can
+                            skip
                             requirements
-                            when researching non-military tech. Your ships generate trade goods when enemies move near
+                            when researching non-military tech. Your ships generate trade goods when enemies move
+                            near
                             them.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Economic and technological superiority. Focus on collecting technologies and using superior
+                        <p>Economic and technological superiority. Focus on collecting technologies and using
+                            superior
                             science to compete despite weaker military.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the galaxy's mad scientist! Collecting technologies feels rewarding, and out-teching
-                            opponents is incredibly satisfying. Great for players who prefer thinking over fighting.</p>
+                        <p>You're the galaxy's mad scientist! Collecting technologies feels rewarding, and
+                            out-teching
+                            opponents is incredibly satisfying. Great for players who prefer thinking over fighting.
+                        </p>
                     </div>
 
                     <div class="content-section">
@@ -276,7 +291,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">L1Z1X Mindnet</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Ancient cybernetic beings who merged with technology to survive, now
+                        <p class="faction-identity">Ancient cybernetic beings who merged with technology to survive,
+                            now
                             seeking to assimilate the galaxy through technological superiority.</p>
                     </div>
                     <button class="view-details-btn">
@@ -301,13 +317,15 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>Straightforward "build dreadnoughts, conquer planets, get stronger" strategy. Every battle
+                        <p>Straightforward "build dreadnoughts, conquer planets, get stronger" strategy. Every
+                            battle
                             is feared by your opponents, and your robot army theme is very satisfying.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Begin with a dreadnought, strong starting technologies (Plasma Scoring + Sarween Tools), and
+                        <p>Begin with a dreadnought, strong starting technologies (Plasma Scoring + Sarween Tools),
+                            and
                             solid production base.</p>
                     </div>
 
@@ -341,7 +359,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Xxcha Kingdom</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Peaceful turtle-like diplomats who prefer negotiation to warfare,
+                        <p class="faction-identity">Peaceful turtle-like diplomats who prefer negotiation to
+                            warfare,
                             serving as the galaxy's mediators and peacekeepers.</p>
                     </div>
                     <button class="view-details-btn">
@@ -352,7 +371,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Peacefully claim empty planets adjacent to your territory using diplomacy. Cancel political
+                        <p>Peacefully claim empty planets adjacent to your territory using diplomacy. Cancel
+                            political
                             agendas and force new votes. Strong defensive capabilities.</p>
                     </div>
 
@@ -365,7 +385,8 @@
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
                         <p>Perfect for players who enjoy political intrigue over warfare. You're the galaxy's wise
-                            peacekeeper, forming alliances and manipulating outcomes through sheer political power.</p>
+                            peacekeeper, forming alliances and manipulating outcomes through sheer political power.
+                        </p>
                     </div>
 
                     <div class="content-section">
@@ -406,7 +427,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Yin Brotherhood</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Fanatical religious clones who spread their faith across the galaxy,
+                        <p class="faction-identity">Fanatical religious clones who spread their faith across the
+                            galaxy,
                             converting enemies to their cause through zealous devotion.</p>
                     </div>
                     <button class="view-details-btn">
@@ -423,7 +445,8 @@
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Aggressive ground-focused combat with conversion tactics. Love invasions where you can turn
+                        <p>Aggressive ground-focused combat with conversion tactics. Love invasions where you can
+                            turn
                             enemy armies to your faith through religious fervor.</p>
                     </div>
 
@@ -435,7 +458,8 @@
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Balanced fleet with 4 fighters and strong starting technology (Sarween Tools) for good early
+                        <p>Balanced fleet with 4 fighters and strong starting technology (Sarween Tools) for good
+                            early
                             production.</p>
                     </div>
 
@@ -469,7 +493,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Yssaril Tribes</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Chameleon-like espionage masters who manipulate galactic politics
+                        <p class="faction-identity">Chameleon-like espionage masters who manipulate galactic
+                            politics
                             from the shadows through superior intelligence networks.</p>
                     </div>
                     <button class="view-details-btn">
@@ -492,7 +517,8 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the puppet master pulling strings behind the scenes. The unlimited cards create unique
+                        <p>You're the puppet master pulling strings behind the scenes. The unlimited cards create
+                            unique
                             opportunities, and controlling timing keeps opponents guessing.</p>
                     </div>
 
@@ -533,7 +559,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Emirates of Hacan</h2>
                         <div class="difficulty-badge intermediate">INTERMEDIATE</div>
-                        <p class="faction-identity">Lion-like master traders who built their civilization on commerce,
+                        <p class="faction-identity">Lion-like master traders who built their civilization on
+                            commerce,
                             serving as the galaxy's bankers and deal-makers.</p>
                     </div>
                     <button class="view-details-btn">
@@ -544,13 +571,15 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Trade with any player regardless of proximity (others can only trade with neighbors). Refresh
+                        <p>Trade with any player regardless of proximity (others can only trade with neighbors).
+                            Refresh
                             commodities for free when trade happens. Start with 6 commodities instead of 3-4.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Economic diplomacy focused on profitable deals and negotiation. Be the galaxy's central bank
+                        <p>Economic diplomacy focused on profitable deals and negotiation. Be the galaxy's central
+                            bank
                             while building economic advantages.</p>
                     </div>
 
@@ -614,7 +643,8 @@
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Mobile opportunistic expansion. Constantly relocate your civilization, swooping in to claim
+                        <p>Mobile opportunistic expansion. Constantly relocate your civilization, swooping in to
+                            claim
                             resources then moving when threatened.</p>
                     </div>
 
@@ -626,7 +656,8 @@
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Floating space dock and strong carrier fleet for immediate mobile expansion, plus Antimass
+                        <p>Floating space dock and strong carrier fleet for immediate mobile expansion, plus
+                            Antimass
                             Deflectors for movement advantage.</p>
                     </div>
 
@@ -661,7 +692,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Naalu Collective</h2>
                         <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
-                        <p class="faction-identity">Precognitive snake-people who see the future and manipulate time,
+                        <p class="faction-identity">Precognitive snake-people who see the future and manipulate
+                            time,
                             always staying one step ahead of enemies.</p>
                     </div>
                     <button class="view-details-btn">
@@ -673,13 +705,15 @@
                     <div class="content-section">
                         <h3> Special Abilities</h3>
                         <p>Always go first every round. Escape from bad fights to
-                            adjacent empty systems. Have superior fighters than can even join in ground combat if your
+                            adjacent empty systems. Have superior fighters than can even join in ground combat if
+                            your
                             flagship is there.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Hit-and-run tactics with superior positioning. Use speed advantage and foresight to strike
+                        <p>Hit-and-run tactics with superior positioning. Use speed advantage and foresight to
+                            strike
                             where enemies are weak while avoiding bad fights.</p>
                     </div>
 
@@ -725,7 +759,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Sardakk N'orr</h2>
                         <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
-                        <p class="faction-identity">Giant warrior insects who live for honorable battle, representing
+                        <p class="faction-identity">Giant warrior insects who live for honorable battle,
+                            representing
                             the classic proud warrior race archetype.</p>
                     </div>
                     <button class="view-details-btn">
@@ -742,13 +777,15 @@
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Aggressive military conquest through superior combat effectiveness. Fight early and often,
+                        <p>Aggressive military conquest through superior combat effectiveness. Fight early and
+                            often,
                             using combat bonuses to win battles others would lose.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the galaxy's apex predators. Every fight gives you better odds, making risky battles
+                        <p>You're the galaxy's apex predators. Every fight gives you better odds, making risky
+                            battles
                             winnable. Perfect for players who love direct confrontation.</p>
                     </div>
 
@@ -800,7 +837,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Don't pay influence to take the galactic center initially. Get free space dock and planetary
+                        <p>Don't pay influence to take the galactic center initially. Get free space dock and
+                            planetary
                             defense system when successfully capturing the galactic center.</p>
                     </div>
 
@@ -812,7 +850,8 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>High-risk, high-reward gameplay as the underdog reclaiming their throne. Every game becomes a
+                        <p>High-risk, high-reward gameplay as the underdog reclaiming their throne. Every game
+                            becomes a
                             dramatic race against time with immense tension.</p>
                     </div>
 
@@ -852,7 +891,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Arborec</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
-                        <p class="faction-identity">Living tree entities who grow their forces organically rather than
+                        <p class="faction-identity">Living tree entities who grow their forces organically rather
+                            than
                             building industrially, representing nature's slow but inexorable expansion.</p>
                     </div>
                     <button class="view-details-btn">
@@ -863,7 +903,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Can't build infantry normally - instead get 1 free infantry per round on any planet. Infantry
+                        <p>Can't build infantry normally - instead get 1 free infantry per round on any planet.
+                            Infantry
                             can produce new units, something no other faction can. Infantry can move between nearby
                             planets
                             without ships.</p>
@@ -877,13 +918,15 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>Watching small seedlings grow into a galactic forest is incredibly satisfying. Very unique
+                        <p>Watching small seedlings grow into a galactic forest is incredibly satisfying. Very
+                            unique
                             gameplay focused on biological growth rather than industrial production.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Nice and easy to defend home system. Starts with Magen Defense Grid for planetary defense.
+                        <p>Nice and easy to defend home system. Starts with Magen Defense Grid for planetary
+                            defense.
                         </p>
                     </div>
 
@@ -918,7 +961,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Embers of Muaat</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
-                        <p class="faction-identity">Beings of living flame who master stellar destruction, beginning the
+                        <p class="faction-identity">Beings of living flame who master stellar destruction, beginning
+                            the
                             game with the galaxy's only War Sun superweapon.</p>
                     </div>
                     <button class="view-details-btn">
@@ -929,19 +973,22 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Spend command tokens to create fighters or destroyers in systems with your War Suns. Can fly
+                        <p>Spend command tokens to create fighters or destroyers in systems with your War Suns. Can
+                            fly
                             through (not stop in) supernovas while others cannot. Start with Prototype War Sun.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>High-risk/high-reward centered on leveraging early War Sun advantage while racing to upgrade
+                        <p>High-risk/high-reward centered on leveraging early War Sun advantage while racing to
+                            upgrade
                             it for mobility.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You begin with a planet-killing superweapon! The psychological impact and raw power creates
+                        <p>You begin with a planet-killing superweapon! The psychological impact and raw power
+                            creates
                             epic moments perfect for players wanting immediate galactic threat status.</p>
                     </div>
 
@@ -981,7 +1028,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Ghosts of Creuss</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
-                        <p class="faction-identity">Mysterious energy beings from another dimension who travel through
+                        <p class="faction-identity">Mysterious energy beings from another dimension who travel
+                            through
                             wormholes, appearing where enemies least expect them.</p>
                     </div>
                     <button class="view-details-btn">
@@ -993,20 +1041,23 @@
                     <div class="content-section">
                         <h3> Special Abilities</h3>
                         <p>All common wormholes types act as one type of wormhole for you. Start outside main galaxy
-                            with special wormhole connection. Your flagship is a wormhole, and during the game you can
+                            with special wormhole connection. Your flagship is a wormhole, and during the game you
+                            can
                             even create new wormholes.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Highly mobile hit-and-run tactics through wormhole manipulation. Strike unexpectedly where
+                        <p>Highly mobile hit-and-run tactics through wormhole manipulation. Strike unexpectedly
+                            where
                             enemies are weak, then vanish to safety.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>Perfect for players who love spatial puzzles and surprising opponents. Your unique movement
+                        <p>Perfect for players who love spatial puzzles and surprising opponents. Your unique
+                            movement
                             creates gameplay no other faction can replicate.</p>
                     </div>
 
@@ -1047,7 +1098,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Mentak Coalition</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
-                        <p class="faction-identity">Former political prisoners who formed their own nation, representing
+                        <p class="faction-identity">Former political prisoners who formed their own nation,
+                            representing
                             cunning opportunism and making the best of bad situations.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1058,25 +1110,29 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Get free shots before space combat with cruisers/destroyers. Steal trade goods when neighbors
+                        <p>Get free shots before space combat with cruisers/destroyers. Steal trade goods when
+                            neighbors
                             get wealthy.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Opportunistic disruption focused on profiting from others' success while using superior early
+                        <p>Opportunistic disruption focused on profiting from others' success while using superior
+                            early
                             combat capabilities.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're are the knife. When people get too powerful you cut them down. Every trade is now a
+                        <p>You're are the knife. When people get too powerful you cut them down. Every trade is now
+                            a
                             3-way interaction, where you can negotiate if you will steal their resources or not.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Strong combat technologies (Sarween Tools + Plasma Scoring) and balanced fleet optimized for
+                        <p>Strong combat technologies (Sarween Tools + Plasma Scoring) and balanced fleet optimized
+                            for
                             piracy.</p>
                     </div>
 
@@ -1122,7 +1178,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Steal technologies by destroying enemy units in combat. Can't research normally - instead get
+                        <p>Steal technologies by destroying enemy units in combat. Can't research normally - instead
+                            get
                             extra actions. Can copy faction abilities through special technologies.</p>
                     </div>
 
@@ -1134,7 +1191,8 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the terrifying villain that becomes stronger through every victory! Turning enemies'
+                        <p>You're the terrifying villain that becomes stronger through every victory! Turning
+                            enemies'
                             own tech against them is extremely satisfying.</p>
                     </div>
 
@@ -1174,7 +1232,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Argent Flight</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Elite starfighter pilots who value honor and tactical excellence,
+                        <p class="faction-identity">Elite starfighter pilots who value honor and tactical
+                            excellence,
                             commanding through superior coordination and carrier-based warfare.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1198,7 +1257,8 @@
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
                         <p>You control galactic politics through voting superiority while commanding elite fighter
-                            squadrons. The combination of political leverage and tactical flexibility creates multiple
+                            squadrons. The combination of political leverage and tactical flexibility creates
+                            multiple
                             paths to victory.</p>
                     </div>
 
@@ -1251,7 +1311,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Other players can move through your systems if you will so. Ignore nebula movement penalties.
+                        <p>Other players can move through your systems if you will so. Ignore nebula movement
+                            penalties.
                             Your promissory notes also benefit you instead of being negative.
                         </p>
                     </div>
@@ -1265,7 +1326,8 @@
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
                         <p>Gain political influence by
-                            offering passage rights while executing your own strategic movements. Your technology allows
+                            offering passage rights while executing your own strategic movements. Your technology
+                            allows
                             you to monopolize frontier tokens</p>
                     </div>
 
@@ -1305,7 +1367,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Mahact Gene-Sorcerers</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
-                        <p class="faction-identity">Ancient genetic manipulators who control enemies through enslaved
+                        <p class="faction-identity">Ancient genetic manipulators who control enemies through
+                            enslaved
                             commanders, turning other factions' leaders into their puppets.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1317,7 +1380,8 @@
                     <div class="content-section">
                         <h3> Special Abilities</h3>
                         <p>Capture one command token from each opponent defeated in combat. Use the
-                            captured player's commander abilities while holding their token. Gain more fleet capacity
+                            captured player's commander abilities while holding their token. Gain more fleet
+                            capacity
                             while holding captured tokens.</p>
                     </div>
 
@@ -1328,7 +1392,8 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the puppet master holding your enemies' command tokens. Each captured leader adds new
+                        <p>You're the puppet master holding your enemies' command tokens. Each captured leader adds
+                            new
                             strategic options, growing stronger as opponents activate systems.</p>
                     </div>
 
@@ -1370,7 +1435,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Naaz-Rokha Alliance</h2>
                         <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
-                        <p class="faction-identity">Ingenious explorers and recyclers who turn exploration rewards into
+                        <p class="faction-identity">Ingenious explorers and recyclers who turn exploration rewards
+                            into
                             powerful upgrades, thriving in resource-poor systems.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1436,7 +1502,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Nomad</h2>
                         <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
-                        <p class="faction-identity">Wandering traders and opportunists who control galactic agendas,
+                        <p class="faction-identity">Time travelling trader and opportunist who controls galactic
+                            agendas,
                             profiting from prediction others while staying mobile and unpredictable themselves.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1461,13 +1528,15 @@
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
                         <p>You're the mysterious wanderer benefiting from political prediction and transactions
-                            everywhere. Your upgradable flagship is the only one in the game that can become stronger.
+                            everywhere. Your flagship is the only one in the game that can become
+                            stronger.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Mobile Memoria flagship starting in fleet, Sling Relay technology for movement, extra leader
+                        <p>Flagship, Sling Relay technology for movement, extra
+                            leader
                             cards for more agent abilities, and strong starting economy.</p>
                     </div>
 
@@ -1502,7 +1571,8 @@
                         <h2 class="faction-name">The Titans of Ul</h2>
                         <div class="difficulty-badge advanced"> ADVANCED</div>
                         <p class="faction-identity">Ancient planetary entities who terraform worlds and create
-                            specialized defensive structures, becoming increasingly powerful through PDS networks.</p>
+                            specialized defensive structures, becoming increasingly powerful through PDS networks.
+                        </p>
                     </div>
                     <button class="view-details-btn">
                         View Detailed Info
@@ -1526,7 +1596,8 @@
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
                         <p>You're building a planetary empire of impenetrable defenses. Your PDS
-                            networks become combat zones for invaders while your terraformed planets grow stronger.</p>
+                            networks become combat zones for invaders while your terraformed planets grow stronger.
+                        </p>
                     </div>
 
                     <div class="content-section">
@@ -1590,13 +1661,15 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're the terrifying alien invaders benefiting from every unit destroyed. Enemy losses fuel
+                        <p>You're the terrifying alien invaders benefiting from every unit destroyed. Enemy losses
+                            fuel
                             your production and technology, making combat losses profitable.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Decent fleet with Self-assembly Routines as starting technology, which allows your to easily
+                        <p>Decent fleet with Self-assembly Routines as starting technology, which allows your to
+                            easily
                             gain mechs.</p>
                     </div>
 
@@ -1700,7 +1773,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">Last Bastion</h2>
                         <div class="difficulty-badge beginner"> BEGINNER</div>
-                        <p class="faction-identity">Joint military expedition between Xxcha and Sol who galvanize their
+                        <p class="faction-identity">Joint military expedition between Xxcha and Sol who galvanize
+                            their
                             units, making each soldier fight like ten through sheer determination.</p>
                     </div>
                     <button class="view-details-btn"">
@@ -1711,13 +1785,15 @@
                 <div class=" content-grid">
                         <div class="content-section">
                             <h3> Special Abilities</h3>
-                            <p>Galvanize units to roll extra dice in combat and for abilities. Can sacrifice units for
+                            <p>Galvanize units to roll extra dice in combat and for abilities. Can sacrifice units
+                                for
                                 guaranteed hits. Produce ships in remote systems through breakthroughs.</p>
                         </div>
 
                         <div class="content-section">
                             <h3> Playstyle</h3>
-                            <p>Quality over quantity warfare. Make every unit count by galvanizing them, turning small
+                            <p>Quality over quantity warfare. Make every unit count by galvanizing them, turning
+                                small
                                 forces into elite squads that punch far above their weight.</p>
                         </div>
 
@@ -1767,7 +1843,8 @@
                     <div class="faction-title">
                         <h2 class="faction-name">The Deepwrought Scholarate</h2>
                         <div class="difficulty-badge intermediate"> INTERMEDIATE</div>
-                        <p class="faction-identity">Renegade Jol-Nar scientists who share knowledge freely, establishing
+                        <p class="faction-identity">Renegade Jol-Nar scientists who share knowledge freely,
+                            establishing
                             coexistence on planets while building underwater research stations.</p>
                     </div>
                     <button class="view-details-btn">
@@ -1778,25 +1855,29 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Coexist peacefully on planets with other players while gaining ocean cards. Gain trade goods
+                        <p>Coexist peacefully on planets with other players while gaining ocean cards. Gain trade
+                            goods
                             from ocean cards. Help others research technology in exchange for benefits.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Technology-focused cooperation. Spread across the galaxy through coexistence while building a
+                        <p>Technology-focused cooperation. Spread across the galaxy through coexistence while
+                            building a
                             technological and economic advantage through shared research.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You can peacefully coexist on enemy planets! The ocean cards and technology sharing create
+                        <p>You can peacefully coexist on enemy planets! The ocean cards and technology sharing
+                            create
                             unique diplomatic opportunities and friendly gameplay.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Good starting technologies and special ocean cards that function as additional planets for
+                        <p>Good starting technologies and special ocean cards that function as additional planets
+                            for
                             resource and influence generation.</p>
                     </div>
 
@@ -1843,7 +1924,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Place breach tokens that make systems adjacent. Cannot use wormholes. Replace destroyed ships
+                        <p>Place breach tokens that make systems adjacent. Cannot use wormholes. Replace destroyed
+                            ships
                             instantly at home. Swap ship positions anywhere on the board.</p>
                     </div>
 
@@ -1855,7 +1937,8 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You play 4D chess with the game board! Breaches create mind-bending tactical opportunities,
+                        <p>You play 4D chess with the game board! Breaches create mind-bending tactical
+                            opportunities,
                             and your spatial manipulation keeps enemies guessing.</p>
                     </div>
 
@@ -1908,7 +1991,8 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Transport PDS and space docks on ships. Move ships when enemies activate your systems. Unpass
+                        <p>Transport PDS and space docks on ships. Move ships when enemies activate your systems.
+                            Unpass
                             to take additional actions after passing. Generate extra action cards.</p>
                     </div>
 
@@ -1920,13 +2004,15 @@
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>Your stuff moves with you! Transporting structures creates amazing tactical flexibility, and
+                        <p>Your stuff moves with you! Transporting structures creates amazing tactical flexibility,
+                            and
                             being able to unpass keeps opponents on their toes.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Starting Assets</h3>
-                        <p>Fast destroyers with movement 3, technologies for mobility, and breakthrough allowing extra
+                        <p>Fast destroyers with movement 3, technologies for mobility, and breakthrough allowing
+                            extra
                             action cards.</p>
                     </div>
 
@@ -1973,19 +2059,22 @@
                 <div class="content-grid">
                     <div class="content-section">
                         <h3> Special Abilities</h3>
-                        <p>Score others' secret objectives to place plot cards. Transform into the Obsidian mid-game.
+                        <p>Score others' secret objectives to place plot cards. Transform into the Obsidian
+                            mid-game.
                             Puppet players through plot cards that drain their resources and copy abilities.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Playstyle</h3>
-                        <p>Two-phase gameplay: subtle manipulation as Firmament, then transformation into the Obsidian
+                        <p>Two-phase gameplay: subtle manipulation as Firmament, then transformation into the
+                            Obsidian
                             for devastating puppeteering. Every player becomes your tool.</p>
                     </div>
 
                     <div class="content-section">
                         <h3> Why It's Fun</h3>
-                        <p>You're playing two factions in one! The Firmament-to-Obsidian transformation is dramatic, and
+                        <p>You're playing two factions in one! The Firmament-to-Obsidian transformation is dramatic,
+                            and
                             puppeting opponents through plot cards is incredibly satisfying.</p>
                     </div>
 
@@ -2026,15 +2115,6 @@
             </div>
         </div>
     </div>
-
-    <div class="navigation">
-        <button class="nav-btn" id="prevBtn"">← Previous</button>
-        <div class=" slide-indicators" id="indicators">
-    </div>
-    <button class="nav-btn" id="nextBtn">Next →</button>
-    </div>
-    </div>
-
     <script src="audio-manager.js"></script>
     <script src="script.js"></script>
 </body>
