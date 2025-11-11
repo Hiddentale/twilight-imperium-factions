@@ -10,6 +10,8 @@ class AudioManager {
     this.userInteracted = false
     this.streamingMode = false
     this.streamingButton = null
+    this.recentlyPlayedHistory = []
+    this.historyMaxSize = 3
 
     const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
 
@@ -161,6 +163,7 @@ class AudioManager {
 
     if (this.streamingMode) {
       this.streamingMode = false
+      this.recentlyPlayedHistory = []
       button.textContent = 'Random Music'
       button.classList.remove('streaming-active')
 
@@ -193,10 +196,35 @@ class AudioManager {
   async playRandomMusic() {
     if (!this.streamingMode) return
 
-    const randomIndex = Math.floor(Math.random() * this.audioFiles.size)
+    const totalSongs = this.audioFiles.size
+    const availableIndices = []
+
+    for (let i = 0; i < totalSongs; i++) {
+      if (!this.recentlyPlayedHistory.includes(i)) {
+        availableIndices.push(i)
+      }
+    }
+
+    if (availableIndices.length === 0) {
+      const lastPlayed = this.recentlyPlayedHistory[this.recentlyPlayedHistory.length - 1]
+      this.recentlyPlayedHistory = lastPlayed !== undefined ? [lastPlayed] : []
+
+      for (let i = 0; i < totalSongs; i++) {
+        if (!this.recentlyPlayedHistory.includes(i)) {
+          availableIndices.push(i)
+        }
+      }
+    }
+
+    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)]
     const randomSlide = randomIndex + 1
 
-    console.log(`Streaming: Playing faction ${randomSlide}`)
+    this.recentlyPlayedHistory.push(randomIndex)
+    if (this.recentlyPlayedHistory.length > this.historyMaxSize) {
+      this.recentlyPlayedHistory.shift()
+    }
+
+    console.log(`Streaming: Playing faction ${randomSlide} (history: ${this.recentlyPlayedHistory.length})`)
 
     try {
       await this.loadAudioForSlide(randomSlide)
