@@ -402,6 +402,10 @@ function setupEventListeners() {
     btn.addEventListener('click', () => showFactionDetails(index + 1))
   })
 
+  document.querySelectorAll('.view-lore-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => showLoreModal(index))
+  })
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') debouncedChangeSlide(-1)
     if (e.key === 'ArrowRight') debouncedChangeSlide(1)
@@ -422,6 +426,191 @@ function setupEventListeners() {
       closeModal(modal)
     }
   })
+}
+
+/* ============================================
+   LORE LOADING SYSTEM
+   ============================================ */
+const loreCache = new Map()
+
+let currentlyLoadingLore = null
+
+/**
+ * Sanitize HTML to prevent XSS attacks
+ * Allows only safe HTML elements that markdown generates
+ * @param {string} html - HTML string to sanitize
+ * @returns {string} Sanitized HTML
+ */
+function sanitizeMarkdownHtml(html) {
+  const div = document.createElement('div')
+  div.innerHTML = html
+
+  const allowedTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'UL', 'OL', 'LI',
+    'STRONG', 'EM', 'CODE', 'PRE', 'BLOCKQUOTE', 'A', 'BR', 'HR']
+
+  const allElements = div.getElementsByTagName('*')
+  for (let i = allElements.length - 1; i >= 0; i--) {
+    const element = allElements[i]
+
+    if (!allowedTags.includes(element.tagName)) {
+      element.remove()
+      continue
+    }
+
+    Array.from(element.attributes).forEach(attr => {
+      if (attr.name.startsWith('on')) {
+        element.removeAttribute(attr.name)
+      }
+    })
+
+    if (element.tagName === 'A') {
+      const href = element.getAttribute('href')
+      if (href && !href.startsWith('http://') && !href.startsWith('https://')) {
+        element.removeAttribute('href')
+      }
+      element.setAttribute('target', '_blank')
+      element.setAttribute('rel', 'noopener noreferrer')
+    }
+  }
+
+  return div.innerHTML
+}
+
+/**
+ * Load lore markdown file for a faction
+ * @param {number} factionIndex - Index of the faction (0-based)
+ * @returns {Promise<string>} Sanitized HTML from markdown
+ */
+async function loadLoreFile(factionIndex) {
+  if (loreCache.has(factionIndex)) {
+    return loreCache.get(factionIndex)
+  }
+
+  try {
+    const response = await fetch(`lore/${factionIndex}.md`)
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error('LORE_NOT_FOUND')
+      }
+      throw new Error(`Failed to load lore: ${response.status}`)
+    }
+
+    const markdown = await response.text()
+
+    let html
+    if (typeof marked !== 'undefined' && marked.parse) {
+      html = marked.parse(markdown)
+    } else {
+      console.warn('marked.js not loaded, displaying as plain text')
+      html = `<pre>${escapeHtml(markdown)}</pre>`
+    }
+
+    const sanitizedHtml = sanitizeMarkdownHtml(html)
+
+    loreCache.set(factionIndex, sanitizedHtml)
+
+    return sanitizedHtml
+  } catch (error) {
+    console.error(`Error loading lore for faction ${factionIndex}:`, error)
+    throw error
+  }
+}
+
+/**
+ * Show loading state in lore modal
+ * @param {HTMLElement} loreBody - The lore body element
+ */
+function showLoreLoading(loreBody) {
+  loreBody.innerHTML = `
+    <div style="text-align: center; padding: 3rem;">
+      <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+      <p>Loading lore...</p>
+    </div>
+  `
+}
+
+/**
+ * Show error state in lore modal
+ * @param {HTMLElement} loreBody - The lore body element
+ * @param {string} message - Error message to display
+ */
+function showLoreError(loreBody, message) {
+  loreBody.innerHTML = `
+    <div style="text-align: center; padding: 3rem;">
+      <div style="font-size: 2rem; margin-bottom: 1rem;">📜</div>
+      <p>${escapeHtml(message)}</p>
+    </div>
+  `
+}
+
+/* ============================================
+   LORE MODAL FUNCTIONS
+   ============================================ */
+async function showLoreModal(factionIndex) {
+  const modal = getElementById('lore-modal', false)
+  const loreTitle = getElementById('lore-faction-name', false)
+  const loreBody = getElementById('lore-text', false)
+
+  if (!modal || !loreTitle || !loreBody) {
+    console.error('Lore modal elements not found')
+    return
+  }
+
+  if (currentlyLoadingLore === factionIndex) {
+    return
+  }
+
+  const factionName = CONSTANTS.FACTION_NAMES[factionIndex] || 'Unknown Faction'
+  loreTitle.textContent = factionName
+
+  modal.classList.add('active')
+  modal.setAttribute('aria-hidden', 'false')
+  showLoreLoading(loreBody)
+  loreBody.scrollTop = 0
+
+  currentlyLoadingLore = factionIndex
+
+  try {
+    const loreHtml = await loadLoreFile(factionIndex)
+
+    if (currentlyLoadingLore === factionIndex && modal.classList.contains('active')) {
+      loreBody.innerHTML = loreHtml
+      loreBody.scrollTop = 0
+    }
+  } catch (error) {
+    if (currentlyLoadingLore === factionIndex && modal.classList.contains('active')) {
+      if (error.message === 'LORE_NOT_FOUND') {
+        showLoreError(loreBody, 'Lore for this faction is coming soon!')
+      } else {
+        showLoreError(loreBody, 'Failed to load lore. Please try again.')
+        console.error('Lore loading error:', error)
+      }
+    }
+  } finally {
+    if (currentlyLoadingLore === factionIndex) {
+      currentlyLoadingLore = null
+    }
+  }
+}
+
+function closeLoreModal() {
+  const modal = getElementById('lore-modal', false)
+  if (modal) {
+    closeModal(modal)
+    currentlyLoadingLore = null
+  }
+}
+
+/**
+ * Escape HTML special characters to prevent XSS
+ * @param {string} text - Text to escape
+ * @returns {string} Escaped text
+ */
+function escapeHtml(text) {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
 }
 
 /* ============================================

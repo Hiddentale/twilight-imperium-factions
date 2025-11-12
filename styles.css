@@ -253,6 +253,124 @@ body {
 }
 
 /* ============================================
+   COMPONENTS - LORE MODAL
+   ============================================ */
+.lore-modal .modal-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    max-width: 800px;
+    width: 90%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent-secondary);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+}
+
+.lore-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+.lore-header {
+    padding: var(--space-6) var(--space-8);
+    border-bottom: 2px solid var(--accent-secondary);
+    background: rgba(100, 181, 246, 0.1);
+}
+
+.lore-header h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--accent-primary);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.lore-body {
+    padding: var(--space-6) var(--space-8);
+    overflow-y: auto;
+    flex: 1;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: var(--text-base);
+}
+
+.lore-body p {
+    margin-bottom: var(--space-4);
+}
+
+.lore-body p:last-child {
+    margin-bottom: 0;
+}
+
+.lore-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lore-body::-webkit-scrollbar-track {
+    background: rgba(100, 181, 246, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.lore-body::-webkit-scrollbar-thumb {
+    background: var(--accent-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.lore-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-tertiary);
+}
+
+.lore-modal .modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    font-size: 32px;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.lore-modal .modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+.faction-buttons {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.view-lore-btn {
+    background: linear-gradient(135deg, #9c27b0, #e91e63);
+    color: white;
+    border: none;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+}
+
+.view-lore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.5);
+}
+
+/* ============================================
    COMPONENTS - AUDIO CONTROLS
    ============================================ */
 .audio-control-btn {
@@ -1268,5 +1386,41 @@ body {
 
     .expansion-label {
         font-size: 0.65rem;
+    }
+
+    .lore-modal .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .lore-header {
+        padding: var(--space-4) var(--space-5);
+    }
+
+    .lore-header h2 {
+        font-size: var(--text-xl);
+    }
+
+    .lore-body {
+        padding: var(--space-4) var(--space-5);
+        font-size: var(--text-sm);
+    }
+
+    .lore-modal .modal-close {
+        top: var(--space-2);
+        right: var(--space-2);
+        width: 36px;
+        height: 36px;
+        font-size: 28px;
+    }
+
+    .faction-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .view-lore-btn,
+    .view-details-btn {
+        width: 100%;
     }
 }
