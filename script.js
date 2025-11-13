@@ -186,6 +186,11 @@ function updateSlideDisplay() {
     indicator.setAttribute('aria-current', index === currentSlide ? 'true' : 'false')
   })
 
+  const dropdown = getElementById('factionJump', false)
+  if (dropdown) {
+    dropdown.value = currentSlide === 0 ? '' : currentSlide
+  }
+
   preloadAdjacentImages(currentSlide)
 
   safeExecute(
@@ -358,7 +363,11 @@ function populateFactionDropdown() {
 
   dropdown.addEventListener('change', (e) => {
     const slideIndex = parseInt(e.target.value)
-    if (slideIndex) goToSlide(slideIndex)
+    if (slideIndex) {
+      goToSlide(slideIndex)
+    } else if (e.target.value === '' && currentSlide !== 0) {
+      goToSlide(0)
+    }
   })
 }
 
