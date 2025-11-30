@@ -36,6 +36,16 @@ class AudioManager {
       [17, `${CDN_BASE_URL}/argent.m4a`],
       [18, `${CDN_BASE_URL}/empyrean.m4a`],
       [19, `${CDN_BASE_URL}/mahact.m4a`],
+      [20, `${CDN_BASE_URL}/naaz.m4a`],
+      [21, `${CDN_BASE_URL}/nomad.m4a`],
+      [22, `${CDN_BASE_URL}/titans.m4a`],
+      [23, `${CDN_BASE_URL}/vuilrath.m4a`],
+      [24, `${CDN_BASE_URL}/keleres.m4a`],
+      [25, `${CDN_BASE_URL}/bastion.m4a`],
+      [26, `${CDN_BASE_URL}/deepwrought.m4a`],
+      [27, `${CDN_BASE_URL}/crimson.m4a`],
+      [28, `${CDN_BASE_URL}/ralnel.m4a`],
+      [29, `${CDN_BASE_URL}/firmanent.m4a`],
     ])
 
     this.initialize()
