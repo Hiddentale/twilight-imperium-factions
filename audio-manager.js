@@ -377,7 +377,7 @@ class AudioManager {
       return
     }
 
-    if (slideIndex === 0 || slideIndex === 21) {
+    if (slideIndex === 0) {
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
