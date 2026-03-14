@@ -149,18 +149,7 @@ function preloadAdjacentImages(slideIndex) {
    SLIDE MANAGEMENT
    ============================================ */
 function initializeIndicators() {
-  const indicatorsContainer = getElementById('indicators')
-  if (!indicatorsContainer) return
-
-  for (let i = 0; i < totalSlides; i++) {
-    const indicator = document.createElement('div')
-    indicator.className = 'indicator'
-    indicator.setAttribute('role', 'button')
-    indicator.setAttribute('aria-label', `Go to slide ${i + 1}`)
-    if (i === 0) indicator.classList.add('active')
-    indicator.onclick = () => goToSlide(i)
-    indicatorsContainer.appendChild(indicator)
-  }
+  // Indicators element removed from HTML; skip initialization
 }
 
 function updateSlideDisplay() {
@@ -180,11 +169,6 @@ function updateSlideDisplay() {
     nextBtn.disabled = currentSlide === totalSlides - 1
     nextBtn.setAttribute('aria-disabled', currentSlide === totalSlides - 1)
   }
-
-  document.querySelectorAll('.indicator').forEach((indicator, index) => {
-    indicator.classList.toggle('active', index === currentSlide)
-    indicator.setAttribute('aria-current', index === currentSlide ? 'true' : 'false')
-  })
 
   const dropdown = getElementById('factionJump', false)
   if (dropdown) {
@@ -547,7 +531,7 @@ function showLoreLoading(loreBody) {
 function showLoreError(loreBody, message) {
   loreBody.innerHTML = `
     <div style="text-align: center; padding: 3rem;">
-      <div style="font-size: 2rem; margin-bottom: 1rem;">📜</div>
+      <div style="font-size: 2rem; margin-bottom: 1rem;"></div>
       <p>${escapeHtml(message)}</p>
     </div>
   `
