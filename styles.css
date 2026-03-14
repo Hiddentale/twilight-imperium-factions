@@ -104,14 +104,27 @@ body {
     align-items: center;
 }
 
+.header-top-row {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-nav-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+}
+
 .header h1 {
     font-family: var(--font-heading);
     font-size: var(--text-xl);
     font-weight: 700;
     color: var(--accent-primary);
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-    grid-column: 1 / -1;
-    text-align: center;
 }
 
 .header-nav-controls {
@@ -180,9 +193,9 @@ body {
    COMPONENTS - BUTTONS
    ============================================ */
 .nav-btn {
-    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
-    color: white;
-    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: var(--space-3) var(--space-5);
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -194,15 +207,17 @@ body {
 
 .nav-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(100, 181, 246, 0.4);
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+    background: rgba(100, 181, 246, 0.08);
 }
 
 .nav-btn:disabled {
-    background: #37474f;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.2);
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
-    opacity: 0.6;
 }
 
 .intro-btn {
@@ -231,25 +246,27 @@ body {
 }
 
 .view-details-btn {
-    background: linear-gradient(135deg, var(--accent-primary), #ffed4e);
-    color: var(--bg-primary);
-    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: var(--space-3) var(--space-6);
     border-radius: var(--radius-lg);
     cursor: pointer;
     font-size: var(--text-sm);
-    font-weight: 700;
+    font-weight: 600;
     transition: all 0.3s ease;
     font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: var(--space-4);
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    box-shadow: none;
 }
 
 .view-details-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+    background: rgba(100, 181, 246, 0.08);
 }
 
 /* ============================================
@@ -350,39 +367,41 @@ body {
 }
 
 .view-lore-btn {
-    background: linear-gradient(135deg, #9c27b0, #e91e63);
-    color: white;
-    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: var(--space-3) var(--space-6);
     border-radius: var(--radius-lg);
     cursor: pointer;
     font-size: var(--text-sm);
-    font-weight: 700;
+    font-weight: 600;
     transition: all 0.3s ease;
     font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+    box-shadow: none;
 }
 
 .view-lore-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.5);
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+    background: rgba(100, 181, 246, 0.08);
 }
 
 /* ============================================
    COMPONENTS - AUDIO CONTROLS
    ============================================ */
 .audio-control-btn {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #0a0d1a;
-    border: none;
-    padding: 12px 24px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    box-shadow: none;
     font-family: 'Orbitron', monospace;
     transition: all 0.3s ease;
     white-space: nowrap;
@@ -390,7 +409,9 @@ body {
 
 .audio-control-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+    background: rgba(100, 181, 246, 0.08);
 }
 
 .audio-controls-container {
@@ -407,28 +428,16 @@ body {
 }
 
 .streaming-audio-btn {
-    background: linear-gradient(135deg, #9c27b0, #e91e63);
-    color: white;
-    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
     flex-shrink: 0;
 }
 
-.streaming-audio-btn:hover {
-    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.5);
-}
-
 .streaming-audio-btn.streaming-active {
-    background: linear-gradient(135deg, #4caf50, #8bc34a);
-}
-
-.skip-audio-btn {
-    background: linear-gradient(135deg, #2196f3, #64b5f6);
-    color: white;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-muted);
 }
 
 .skip-audio-btn:hover {
-    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+    border-color: var(--accent-secondary);
 }
 
 /* ============================================
@@ -843,26 +852,49 @@ body {
     margin-top: var(--space-6);
 }
 
+/* --- Section base --- */
 .content-section {
-    background: rgba(100, 181, 246, 0.08);
+    --section-accent: var(--accent-secondary);
+    background: rgba(100, 181, 246, 0.06);
     border-radius: var(--radius-md);
     padding: var(--space-5);
-    border-left: 4px solid var(--accent-secondary);
+    border-left: 4px solid var(--section-accent);
     transition: all 0.3s ease;
+    position: relative;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--section-accent), transparent 80%);
+    opacity: 0.4;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
 .content-section:hover {
-    background: rgba(100, 181, 246, 0.12);
-    border-left-color: var(--accent-tertiary);
+    background: rgba(100, 181, 246, 0.1);
     transform: translateX(4px);
+    box-shadow: -4px 0 20px -4px var(--section-accent);
 }
 
 .content-section h3 {
-    color: var(--accent-secondary);
+    color: var(--section-accent);
     font-size: var(--text-lg);
     font-weight: 600;
     margin-bottom: var(--space-3);
     font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.content-section h3::before {
+    font-size: var(--text-sm);
+    opacity: 0.8;
 }
 
 .content-section p {
@@ -887,29 +919,83 @@ body {
     content: "▶";
     position: absolute;
     left: 0;
-    color: var(--accent-secondary);
+    color: var(--section-accent);
     font-size: var(--text-sm);
 }
 
+/* --- Special Abilities: gold/amber — the defining power --- */
+.content-grid > .content-section:nth-child(1) {
+    --section-accent: #ffc107;
+    background: rgba(255, 193, 7, 0.05);
+}
+.content-grid > .content-section:nth-child(1):hover {
+    background: rgba(255, 193, 7, 0.1);
+}
+.content-grid > .content-section:nth-child(1) h3::before {
+    content: "◆";
+}
+
+/* --- Playstyle: cyan/teal — strategic thinking --- */
+.content-grid > .content-section:nth-child(2) {
+    --section-accent: #4fc3f7;
+    background: rgba(79, 195, 247, 0.05);
+}
+.content-grid > .content-section:nth-child(2):hover {
+    background: rgba(79, 195, 247, 0.1);
+}
+.content-grid > .content-section:nth-child(2) h3::before {
+    content: "▸";
+}
+
+/* --- Why It's Fun: magenta/pink — the hook --- */
+.content-grid > .content-section:nth-child(3) {
+    --section-accent: #f06292;
+    background: rgba(240, 98, 146, 0.05);
+}
+.content-grid > .content-section:nth-child(3):hover {
+    background: rgba(240, 98, 146, 0.1);
+}
+.content-grid > .content-section:nth-child(3) h3::before {
+    content: "★";
+}
+
+/* --- Starting Assets: soft purple — preparation & resources --- */
+.content-grid > .content-section:nth-child(4) {
+    --section-accent: #bb86fc;
+    background: rgba(187, 134, 252, 0.05);
+}
+.content-grid > .content-section:nth-child(4):hover {
+    background: rgba(187, 134, 252, 0.1);
+}
+.content-grid > .content-section:nth-child(4) h3::before {
+    content: "◈";
+}
+
+/* --- Strengths & Weaknesses container --- */
 .strengths-weaknesses {
     grid-column: unset;
     display: contents;
 }
 
+/* --- Strengths: green --- */
 .strengths {
-    border-left-color: var(--beginner);
+    --section-accent: var(--beginner);
+    background: rgba(76, 175, 80, 0.05);
+}
+.strengths:hover {
+    background: rgba(76, 175, 80, 0.1);
+}
+.strengths h3::before {
+    content: "▲";
 }
 
+/* --- Weaknesses: red --- */
 .weaknesses {
-    border-left-color: var(--advanced);
+    --section-accent: var(--advanced);
+    background: rgba(244, 67, 54, 0.05);
 }
-
-.strengths h3 {
-    color: var(--beginner);
-}
-
-.weaknesses h3 {
-    color: var(--advanced);
+.weaknesses:hover {
+    background: rgba(244, 67, 54, 0.1);
 }
 
 /* ============================================
@@ -1219,7 +1305,12 @@ body {
     }
 
     .audio-controls-container {
-        display: none;
+        grid-column: unset;
+        grid-row: unset;
+        margin-left: auto;
+        display: flex;
+        gap: var(--space-2);
+        flex-shrink: 0;
     }
 
     .audio-control-btn {

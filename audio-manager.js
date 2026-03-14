@@ -92,9 +92,9 @@ class AudioManager {
       button.remove()
     })
 
-    const header = document.querySelector('.header')
-    if (header) {
-      header.appendChild(button)
+    const container = document.querySelector('.audio-controls-container') || document.querySelector('.header')
+    if (container) {
+      container.appendChild(button)
     } else {
       document.body.appendChild(button)
     }
@@ -141,9 +141,9 @@ class AudioManager {
     button.addEventListener('click', () => this.toggleStreaming(button))
     this.streamingButton = button
 
-    const header = document.querySelector('.header')
-    if (header) {
-      header.appendChild(button)
+    const container = document.querySelector('.audio-controls-container') || document.querySelector('.header')
+    if (container) {
+      container.appendChild(button)
     }
   }
 
@@ -153,7 +153,7 @@ class AudioManager {
     const button = document.createElement('button')
     button.id = 'skip-audio-btn'
     button.className = 'audio-control-btn skip-audio-btn'
-    button.textContent = 'Skip current audio'
+    button.textContent = 'Skip'
     button.style.display = 'none'
 
     button.addEventListener('click', () => {
@@ -162,9 +162,9 @@ class AudioManager {
       }
     })
 
-    const header = document.querySelector('.header')
-    if (header) {
-      header.appendChild(button)
+    const container = document.querySelector('.audio-controls-container') || document.querySelector('.header')
+    if (container) {
+      container.appendChild(button)
     }
   }
 
@@ -196,7 +196,7 @@ class AudioManager {
       button.textContent = 'Stop Random Music'
       button.classList.add('streaming-active')
 
-      if (skipButton) skipButton.style.display = 'block'
+      if (skipButton) skipButton.style.display = 'inline-block'
 
       await this.playRandomMusic()
       console.log('Music streaming enabled')
