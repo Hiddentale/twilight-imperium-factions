@@ -1,0 +1,376 @@
+/* ============================================
+   LORE MODAL
+   ============================================ */
+.lore-modal .modal-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    max-width: 800px;
+    width: 90%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent-secondary);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+}
+
+.lore-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+.lore-header {
+    padding: var(--space-6) var(--space-8);
+    border-bottom: 2px solid var(--accent-secondary);
+    background: rgba(100, 181, 246, 0.1);
+}
+
+.lore-header h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--accent-primary);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.lore-body {
+    padding: var(--space-6) var(--space-8);
+    overflow-y: auto;
+    flex: 1;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: var(--text-base);
+}
+
+.lore-body p {
+    margin-bottom: var(--space-4);
+}
+
+.lore-body p:last-child {
+    margin-bottom: 0;
+}
+
+.lore-state {
+    text-align: center;
+    padding: var(--space-12);
+}
+
+.lore-state-icon {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+}
+
+.lore-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lore-body::-webkit-scrollbar-track {
+    background: rgba(100, 181, 246, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.lore-body::-webkit-scrollbar-thumb {
+    background: var(--accent-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.lore-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-tertiary);
+}
+
+.lore-modal .modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    font-size: 32px;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.lore-modal .modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+.faction-buttons {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    align-items: stretch;
+}
+
+.faction-buttons > button {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* ============================================
+   FACTION CARDS
+   ============================================ */
+.faction-header {
+    display: flex;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+    align-items: flex-start;
+}
+
+.faction-image {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, var(--bg-secondary), #2a2f4a);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    text-align: center;
+    flex-shrink: 0;
+    border: 2px solid rgba(100, 181, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.faction-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.faction-image>div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faction-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(100, 181, 246, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+.faction-title {
+    flex: 1;
+}
+
+.faction-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-2);
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    line-height: 1.2;
+}
+
+.faction-identity {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-4);
+    align-self: flex-start;
+    width: fit-content;
+}
+
+.beginner {
+    background: var(--beginner);
+    color: white;
+}
+
+.intermediate {
+    background: var(--intermediate);
+    color: white;
+}
+
+.advanced {
+    background: var(--advanced);
+    color: white;
+}
+
+.expert {
+    background: var(--expert);
+    color: white;
+}
+
+/* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+/* --- Section base --- */
+.content-section {
+    --section-accent: var(--accent-secondary);
+    background: rgba(100, 181, 246, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    border-left: 4px solid var(--section-accent);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--section-accent), transparent 80%);
+    opacity: 0.4;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.content-section:hover {
+    background: rgba(100, 181, 246, 0.1);
+    transform: translateX(4px);
+    box-shadow: -4px 0 20px -4px var(--section-accent);
+}
+
+.content-section h3 {
+    color: var(--section-accent);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.content-section h3::before {
+    font-size: var(--text-sm);
+    opacity: 0.8;
+}
+
+.content-section p {
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.content-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.content-section li {
+    margin-bottom: var(--space-3);
+    padding-left: var(--space-5);
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.content-section li:before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    color: var(--section-accent);
+    font-size: var(--text-sm);
+}
+
+/* --- Special Abilities: gold/amber --- */
+.content-grid > .content-section:nth-child(1) {
+    --section-accent: #ffc107;
+    background: rgba(255, 193, 7, 0.05);
+}
+.content-grid > .content-section:nth-child(1):hover {
+    background: rgba(255, 193, 7, 0.1);
+}
+.content-grid > .content-section:nth-child(1) h3::before {
+    content: "◆";
+}
+
+/* --- Playstyle: cyan/teal --- */
+.content-grid > .content-section:nth-child(2) {
+    --section-accent: #4fc3f7;
+    background: rgba(79, 195, 247, 0.05);
+}
+.content-grid > .content-section:nth-child(2):hover {
+    background: rgba(79, 195, 247, 0.1);
+}
+.content-grid > .content-section:nth-child(2) h3::before {
+    content: "▸";
+}
+
+/* --- Why It's Fun: magenta/pink --- */
+.content-grid > .content-section:nth-child(3) {
+    --section-accent: #f06292;
+    background: rgba(240, 98, 146, 0.05);
+}
+.content-grid > .content-section:nth-child(3):hover {
+    background: rgba(240, 98, 146, 0.1);
+}
+.content-grid > .content-section:nth-child(3) h3::before {
+    content: "★";
+}
+
+/* --- Starting Assets: soft purple --- */
+.content-grid > .content-section:nth-child(4) {
+    --section-accent: #bb86fc;
+    background: rgba(187, 134, 252, 0.05);
+}
+.content-grid > .content-section:nth-child(4):hover {
+    background: rgba(187, 134, 252, 0.1);
+}
+.content-grid > .content-section:nth-child(4) h3::before {
+    content: "◈";
+}
+
+/* --- Strengths & Weaknesses container --- */
+.strengths-weaknesses {
+    grid-column: unset;
+    display: contents;
+}
+
+/* --- Strengths: green --- */
+.strengths {
+    --section-accent: var(--beginner);
+    background: rgba(76, 175, 80, 0.05);
+}
+.strengths:hover {
+    background: rgba(76, 175, 80, 0.1);
+}
+.strengths h3::before {
+    content: "▲";
+}
+
+/* --- Weaknesses: red --- */
+.weaknesses {
+    --section-accent: var(--advanced);
+    background: rgba(244, 67, 54, 0.05);
+}
+.weaknesses:hover {
+    background: rgba(244, 67, 54, 0.1);
+}
