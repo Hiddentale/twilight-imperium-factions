@@ -1,75 +1,29 @@
 /* ============================================
    CONSTANTS
    ============================================ */
-const CONSTANTS = {
-  DIFFICULTY: {
-    BEGINNER: 1,
-    INTERMEDIATE: 2,
-    ADVANCED: 3,
-    EXPERT: 4
-  },
+const DIFFICULTY_LEVELS = { beginner: 1, intermediate: 2, advanced: 3, expert: 4 }
+const DIFFICULTY_LABELS = ['Beginner', 'Intermediate', 'Advanced', 'Expert']
 
-  DIFFICULTY_LABELS: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
-
-  EXPANSIONS: {
-    BASE: 'base',
-    POK: 'pok',
-    THUNDER: 'thunder'
-  },
-
-  EXPANSION_RANGES: {
-    base: { start: 0, end: 16 },      // Letnev through Nekro
-    pok: { start: 17, end: 24 },      // Argent through Cabal
-    thunder: { start: 25, end: 29 }   // Keleres through Obsidian
-  },
-
-  FACTION_DIFFICULTIES: [
-    // Base Game (0-16)
-    1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
-    // Prophecy of Kings (17-24)
-    1, 1, 3, 2, 2, 3, 3, 2,
-    // Thunder's Edge (25-29)
-    1, 2, 3, 2, 4
-  ],
-
-  FACTION_NAMES: [
-    'The Barony of Letnev', 'Federation of Sol', 'Universities of Jol-Nar',
-    'L1Z1X Mindnet', 'Xxcha Kingdom', 'Yin Brotherhood', 'Yssaril Tribes',
-    'Emirates of Hacan', 'Clan of Saar', 'Naalu Collective', 'Sardakk N\'orr',
-    'The Winnu', 'The Arborec', 'Embers of Muaat', 'Ghosts of Creuss',
-    'Mentak Coalition', 'The Nekro Virus', 'The Argent Flight', 'The Empyrean',
-    'The Mahact Gene-Sorcerers', 'The Naaz-Rokha Alliance', 'The Nomad',
-    'The Titans of Ul', 'The Vuil\'raith Cabal', 'Council Keleres', 'Last Bastion',
-    'The Deepwrought Scholarate', 'The Crimson Rebellion', 'The Ral Nel Consortium',
-    'The Firmament / The Obsidian'
-  ],
-
-  FACTION_IMAGE_FILES: [
-    'r_letnev.jpg', 'r_sol.jpg', 'r_jolnar.jpg', 'r_l1z1x.jpg', 'r_xxcha.jpg',
-    'r_yin.jpg', 'r_yssaril.jpg', 'r_hacan.jpg', 'r_saar.jpg', 'r_naalu.jpg',
-    'r_norr.jpg', 'r_winnu.jpg', 'r_arborec.jpg', 'r_muaat.jpg', 'r_creuss.jpg',
-    'r_mentak.jpg', 'r_nekro.jpg', 'r_argent.jpg', 'r_empyrean.jpg', 'r_mahact.jpg',
-    'r_naazrokha.jpg', 'r_nomad.jpg', 'r_ul.jpg', 'r_vuilraith.jpg', 'r_keleres.jpg',
-    'r_bastion.jpg', 'r_deepwrought.jpg', 'r_rebellion.jpg', 'r_ralnel.jpg',
-    'r_firmament.jpg'
-  ],
-
-  DEBOUNCE_DELAY: 150,
-  IMAGE_PRELOAD_ADJACENCY: 2
+const EXPANSION_RANGES = {
+  base: { start: 0, end: 16 },
+  pok: { start: 17, end: 24 },
+  thunder: { start: 25, end: 29 }
 }
+
+const DEBOUNCE_DELAY = 150
+const IMAGE_PRELOAD_ADJACENCY = 2
 
 /* ============================================
    STATE
    ============================================ */
+let factions = []
 let currentSlide = 0
-let currentDifficulty = CONSTANTS.DIFFICULTY.BEGINNER
+let currentDifficulty = 1
 let initialized = false
-let enabledExpansions = new Set([
-  CONSTANTS.EXPANSIONS.BASE,
-])
+let enabledExpansions = new Set(['base'])
+let slides = []
+let totalSlides = 0
 
-const slides = document.querySelectorAll('.slide')
-const totalSlides = slides.length
 const audioManager = new AudioManager()
 const imageCache = new Set()
 
@@ -110,6 +64,81 @@ function updateElementText(id, text) {
   if (element) element.textContent = text
 }
 
+function escapeHtml(text) {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
+}
+
+/* ============================================
+   SLIDE RENDERING
+   ============================================ */
+function renderFactionSlide(faction, index) {
+  const difficultyLabel = faction.difficulty.toUpperCase()
+  const strengthsHtml = faction.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join('\n')
+  const weaknessesHtml = faction.weaknesses.map(w => `<li>${escapeHtml(w)}</li>`).join('\n')
+
+  const slide = document.createElement('div')
+  slide.className = 'slide'
+  slide.innerHTML = `
+    <div class="faction-header">
+      <div class="faction-image">
+        <div><img src="${escapeHtml(faction.image)}" alt="${escapeHtml(faction.name)}"></div>
+      </div>
+      <div class="faction-title">
+        <h2 class="faction-name">${escapeHtml(faction.name)}</h2>
+        <div class="difficulty-badge ${faction.difficulty}"> ${difficultyLabel}</div>
+        <p class="faction-identity">${escapeHtml(faction.identity)}</p>
+      </div>
+      <div class="faction-buttons">
+        <button class="view-details-btn" data-index="${index}">View Detailed Info</button>
+        <button class="view-lore-btn" data-index="${index}">View Lore</button>
+      </div>
+    </div>
+    <div class="content-grid">
+      <div class="content-section">
+        <h3> Special Abilities</h3>
+        <p>${escapeHtml(faction.abilities)}</p>
+      </div>
+      <div class="content-section">
+        <h3> Playstyle</h3>
+        <p>${escapeHtml(faction.playstyle)}</p>
+      </div>
+      <div class="content-section">
+        <h3> Why It's Fun</h3>
+        <p>${escapeHtml(faction.fun)}</p>
+      </div>
+      <div class="content-section">
+        <h3> Starting Assets</h3>
+        <p>${escapeHtml(faction.assets)}</p>
+      </div>
+      <div class="strengths-weaknesses">
+        <div class="content-section strengths">
+          <h3> Strengths</h3>
+          <ul>${strengthsHtml}</ul>
+        </div>
+        <div class="content-section weaknesses">
+          <h3> Weaknesses</h3>
+          <ul>${weaknessesHtml}</ul>
+        </div>
+      </div>
+    </div>
+  `
+  return slide
+}
+
+function renderAllSlides() {
+  const container = document.querySelector('.main-content')
+  if (!container) return
+
+  factions.forEach((faction, index) => {
+    container.appendChild(renderFactionSlide(faction, index))
+  })
+
+  slides = document.querySelectorAll('.slide')
+  totalSlides = slides.length
+}
+
 /* ============================================
    IMAGE LOADING
    ============================================ */
@@ -131,14 +160,11 @@ function preloadImage(src) {
 }
 
 function preloadAdjacentImages(slideIndex) {
-  const adjacency = CONSTANTS.IMAGE_PRELOAD_ADJACENCY
-
-  for (let i = -adjacency; i <= adjacency; i++) {
-    const targetSlide = slideIndex + i
-    if (targetSlide > 0 && targetSlide < totalSlides) {
-      const imageSrc = `images/${CONSTANTS.FACTION_IMAGE_FILES[targetSlide - 1]}`
+  for (let i = -IMAGE_PRELOAD_ADJACENCY; i <= IMAGE_PRELOAD_ADJACENCY; i++) {
+    const factionIdx = slideIndex + i - 1
+    if (factionIdx >= 0 && factionIdx < factions.length) {
       safeExecute(
-        () => preloadImage(imageSrc).catch(() => { }),
+        () => preloadImage(factions[factionIdx].detailImage).catch(() => {}),
         'Image preload'
       )
     }
@@ -187,7 +213,7 @@ function changeSlide(direction) {
   }
 }
 
-const debouncedChangeSlide = debounce(changeSlide, CONSTANTS.DEBOUNCE_DELAY)
+const debouncedChangeSlide = debounce(changeSlide, DEBOUNCE_DELAY)
 
 function goToSlide(slideIndex) {
   if (slideIndex >= 0 && slideIndex < totalSlides) {
@@ -224,7 +250,6 @@ function setupExpansionSelector() {
       } else {
         enabledExpansions.delete(expansion)
       }
-
     })
 
     bar.addEventListener('keydown', (e) => {
@@ -267,23 +292,23 @@ function setupDifficultySelector() {
         bar.classList.remove('active')
       }
     })
-    label.textContent = CONSTANTS.DIFFICULTY_LABELS[currentDifficulty - 1]
+    label.textContent = DIFFICULTY_LABELS[currentDifficulty - 1]
 
     if (display) {
       display.setAttribute('aria-valuenow', currentDifficulty)
-      display.setAttribute('aria-valuetext', CONSTANTS.DIFFICULTY_LABELS[currentDifficulty - 1])
+      display.setAttribute('aria-valuetext', DIFFICULTY_LABELS[currentDifficulty - 1])
     }
   }
 
   upBtn.addEventListener('click', () => {
-    if (currentDifficulty < CONSTANTS.DIFFICULTY.EXPERT) {
+    if (currentDifficulty < 4) {
       currentDifficulty++
       updateDisplay()
     }
   })
 
   downBtn.addEventListener('click', () => {
-    if (currentDifficulty > CONSTANTS.DIFFICULTY.BEGINNER) {
+    if (currentDifficulty > 1) {
       currentDifficulty--
       updateDisplay()
     }
@@ -298,11 +323,12 @@ function setupDifficultySelector() {
 function goToRandomFaction() {
   const eligibleFactions = []
 
-  CONSTANTS.FACTION_DIFFICULTIES.forEach((difficulty, index) => {
-    if (difficulty > currentDifficulty) return
+  factions.forEach((faction, index) => {
+    const difficultyNum = DIFFICULTY_LEVELS[faction.difficulty]
+    if (difficultyNum > currentDifficulty) return
 
     let isEnabled = false
-    for (const [expansion, range] of Object.entries(CONSTANTS.EXPANSION_RANGES)) {
+    for (const [expansion, range] of Object.entries(EXPANSION_RANGES)) {
       if (index >= range.start && index <= range.end && enabledExpansions.has(expansion)) {
         isEnabled = true
         break
@@ -332,10 +358,10 @@ function populateFactionDropdown() {
 
   dropdown.setAttribute('aria-label', 'Jump to specific faction')
 
-  CONSTANTS.FACTION_NAMES.forEach((name, index) => {
+  factions.forEach((faction, index) => {
     const option = document.createElement('option')
     option.value = index + 1
-    option.textContent = name
+    option.textContent = faction.name
     dropdown.appendChild(option)
   })
 
@@ -358,8 +384,11 @@ function showFactionDetails(factionIndex) {
 
   if (!modal || !modalImage) return
 
-  modalImage.src = `images/${CONSTANTS.FACTION_IMAGE_FILES[factionIndex - 1]}`
-  modalImage.alt = `Detailed faction card for ${CONSTANTS.FACTION_NAMES[factionIndex - 1]}`
+  const faction = factions[factionIndex - 1]
+  if (!faction) return
+
+  modalImage.src = faction.detailImage
+  modalImage.alt = `Detailed faction card for ${faction.name}`
   modal.classList.add('active')
   modal.setAttribute('aria-hidden', 'false')
 }
@@ -385,12 +414,22 @@ function setupEventListeners() {
     randomFactionBtn.addEventListener('click', goToRandomFaction)
   }
 
-  document.querySelectorAll('.view-details-btn').forEach((btn, index) => {
-    btn.addEventListener('click', () => showFactionDetails(index + 1))
-  })
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('view-details-btn')) {
+      showFactionDetails(parseInt(e.target.dataset.index) + 1)
+    }
 
-  document.querySelectorAll('.view-lore-btn').forEach((btn, index) => {
-    btn.addEventListener('click', () => showLoreModal(index))
+    if (e.target.classList.contains('view-lore-btn')) {
+      showLoreModal(parseInt(e.target.dataset.index))
+    }
+
+    if (e.target.classList.contains('modal')) {
+      closeModal(e.target)
+    }
+
+    if (e.target.classList.contains('modal-close')) {
+      closeModal(e.target.closest('.modal'))
+    }
   })
 
   document.addEventListener('keydown', (e) => {
@@ -402,32 +441,14 @@ function setupEventListeners() {
       })
     }
   })
-
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) {
-      closeModal(e.target)
-    }
-
-    if (e.target.classList.contains('modal-close')) {
-      const modal = e.target.closest('.modal')
-      closeModal(modal)
-    }
-  })
 }
 
 /* ============================================
    LORE LOADING SYSTEM
    ============================================ */
 const loreCache = new Map()
-
 let currentlyLoadingLore = null
 
-/**
- * Sanitize HTML to prevent XSS attacks
- * Allows only safe HTML elements that markdown generates
- * @param {string} html - HTML string to sanitize
- * @returns {string} Sanitized HTML
- */
 function sanitizeMarkdownHtml(html) {
   const div = document.createElement('div')
   div.innerHTML = html
@@ -463,11 +484,6 @@ function sanitizeMarkdownHtml(html) {
   return div.innerHTML
 }
 
-/**
- * Load lore markdown file for a faction
- * @param {number} factionIndex - Index of the faction (0-based)
- * @returns {Promise<string>} Sanitized HTML from markdown
- */
 async function loadLoreFile(factionIndex) {
   if (loreCache.has(factionIndex)) {
     return loreCache.get(factionIndex)
@@ -494,9 +510,7 @@ async function loadLoreFile(factionIndex) {
     }
 
     const sanitizedHtml = sanitizeMarkdownHtml(html)
-
     loreCache.set(factionIndex, sanitizedHtml)
-
     return sanitizedHtml
   } catch (error) {
     console.error(`Error loading lore for faction ${factionIndex}:`, error)
@@ -504,10 +518,6 @@ async function loadLoreFile(factionIndex) {
   }
 }
 
-/**
- * Show loading state in lore modal
- * @param {HTMLElement} loreBody - The lore body element
- */
 function showLoreLoading(loreBody) {
   loreBody.innerHTML = `
     <div class="lore-state">
@@ -517,11 +527,6 @@ function showLoreLoading(loreBody) {
   `
 }
 
-/**
- * Show error state in lore modal
- * @param {HTMLElement} loreBody - The lore body element
- * @param {string} message - Error message to display
- */
 function showLoreError(loreBody, message) {
   loreBody.innerHTML = `
     <div class="lore-state">
@@ -531,9 +536,6 @@ function showLoreError(loreBody, message) {
   `
 }
 
-/* ============================================
-   LORE MODAL FUNCTIONS
-   ============================================ */
 async function showLoreModal(factionIndex) {
   const modal = getElementById('lore-modal', false)
   const loreTitle = getElementById('lore-faction-name', false)
@@ -544,12 +546,10 @@ async function showLoreModal(factionIndex) {
     return
   }
 
-  if (currentlyLoadingLore === factionIndex) {
-    return
-  }
+  if (currentlyLoadingLore === factionIndex) return
 
-  const factionName = CONSTANTS.FACTION_NAMES[factionIndex] || 'Unknown Faction'
-  loreTitle.textContent = factionName
+  const faction = factions[factionIndex]
+  loreTitle.textContent = faction ? faction.name : 'Unknown Faction'
 
   modal.classList.add('active')
   modal.setAttribute('aria-hidden', 'false')
@@ -589,31 +589,28 @@ function closeLoreModal() {
   }
 }
 
-/**
- * Escape HTML special characters to prevent XSS
- * @param {string} text - Text to escape
- * @returns {string} Escaped text
- */
-function escapeHtml(text) {
-  const div = document.createElement('div')
-  div.textContent = text
-  return div.innerHTML
-}
-
 /* ============================================
    INITIALIZATION
    ============================================ */
-function init() {
+async function init() {
   if (initialized) return
   initialized = true
 
+  try {
+    const response = await fetch('data/factions.json')
+    factions = await response.json()
+  } catch (error) {
+    console.error('Failed to load faction data:', error)
+    return
+  }
+
   safeExecute(() => {
+    renderAllSlides()
     updateSlideDisplay()
     populateFactionDropdown()
     setupDifficultySelector()
     setupExpansionSelector()
     setupEventListeners()
-
     preloadAdjacentImages(0)
   }, 'Initialization')
 }
