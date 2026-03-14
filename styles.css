@@ -661,7 +661,7 @@ body {
    ============================================ */
 .slide {
     display: none;
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
     background: var(--bg-card);
     border-radius: var(--radius-xl);
@@ -838,8 +838,8 @@ body {
    ============================================ */
 .content-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-5);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
     margin-top: var(--space-6);
 }
 
@@ -892,10 +892,8 @@ body {
 }
 
 .strengths-weaknesses {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-5);
+    grid-column: unset;
+    display: contents;
 }
 
 .strengths {
@@ -1153,36 +1151,6 @@ body {
         margin-top: 0;
     }
 
-    .content-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-4);
-    }
-
-    .content-section {
-        padding: var(--space-4);
-    }
-
-    .content-section h3 {
-        font-size: var(--text-base);
-        margin-bottom: var(--space-2);
-    }
-
-    .content-section p,
-    .content-section li {
-        font-size: var(--text-sm);
-        line-height: 1.5;
-    }
-
-    .strengths-weaknesses {
-        grid-column: unset;
-        display: contents;
-    }
-
-    .strengths,
-    .weaknesses {
-        grid-column: span 1;
-    }
-
     .main-content {
         padding-bottom: 140px;
     }
@@ -1245,7 +1213,8 @@ body {
         display: flex;
         align-items: center;
         gap: var(--space-2);
-        flex: 1;
+        width: 100%;
+        order: -1;
         min-width: 0;
     }
 
@@ -1254,8 +1223,8 @@ body {
     }
 
     .audio-control-btn {
-        font-size: 0.65rem;
-        padding: 6px 10px;
+        font-size: 0.6rem;
+        padding: 5px 8px;
         margin-top: 0;
     }
 
@@ -1267,7 +1236,11 @@ body {
 
     .streaming-audio-btn,
     .skip-audio-btn {
-        flex-shrink: 0;
+        flex-shrink: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .main-content {
@@ -1305,7 +1278,10 @@ body {
     }
 
     .strengths-weaknesses {
+        display: grid;
+        grid-column: 1;
         grid-template-columns: 1fr;
+        gap: var(--space-4);
     }
 
     .intro-slide {
