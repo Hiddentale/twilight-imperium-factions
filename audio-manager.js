@@ -1,3 +1,10 @@
+const AUDIO_CDN_BASE_URL = 'https://cdn.unsealed.space/music'
+const PLAYBACK_VOLUME = 0.3
+const SKIP_INTRO_RATIO = 0.3
+const RETRY_DELAY_MS = 1000
+const PRELOAD_DELAY_MS = 1000
+const HISTORY_MAX_SIZE = 3
+
 class AudioManager {
   constructor() {
     this.currentSlide = null
@@ -11,41 +18,39 @@ class AudioManager {
     this.streamingMode = false
     this.streamingButton = null
     this.recentlyPlayedHistory = []
-    this.historyMaxSize = 3
-
-    const CDN_BASE_URL = 'https://cdn.unsealed.space/music'
+    this.historyMaxSize = HISTORY_MAX_SIZE
 
     this.audioFiles = new Map([
-      [0, `${CDN_BASE_URL}/letnev.m4a`],
-      [1, `${CDN_BASE_URL}/sol.m4a`],
-      [2, `${CDN_BASE_URL}/jolnar.m4a`],
-      [3, `${CDN_BASE_URL}/l1z1x.m4a`],
-      [4, `${CDN_BASE_URL}/xxcha.m4a`],
-      [5, `${CDN_BASE_URL}/yin.m4a`],
-      [6, `${CDN_BASE_URL}/yssaril.m4a`],
-      [7, `${CDN_BASE_URL}/hacan.m4a`],
-      [8, `${CDN_BASE_URL}/saar.m4a`],
-      [9, `${CDN_BASE_URL}/naalu.m4a`],
-      [10, `${CDN_BASE_URL}/sardakk.m4a`],
-      [11, `${CDN_BASE_URL}/winnu.m4a`],
-      [12, `${CDN_BASE_URL}/arborec.m4a`],
-      [13, `${CDN_BASE_URL}/muaat.m4a`],
-      [14, `${CDN_BASE_URL}/creuss.m4a`],
-      [15, `${CDN_BASE_URL}/mentak.m4a`],
-      [16, `${CDN_BASE_URL}/nekro.m4a`],
-      [17, `${CDN_BASE_URL}/argent.m4a`],
-      [18, `${CDN_BASE_URL}/empyrean.m4a`],
-      [19, `${CDN_BASE_URL}/mahact.m4a`],
-      [20, `${CDN_BASE_URL}/naaz.m4a`],
-      [21, `${CDN_BASE_URL}/nomad.m4a`],
-      [22, `${CDN_BASE_URL}/titans.m4a`],
-      [23, `${CDN_BASE_URL}/vuilrath.m4a`],
-      [24, `${CDN_BASE_URL}/keleres.m4a`],
-      [25, `${CDN_BASE_URL}/bastion.m4a`],
-      [26, `${CDN_BASE_URL}/deepwrought.m4a`],
-      [27, `${CDN_BASE_URL}/crimson.m4a`],
-      [28, `${CDN_BASE_URL}/ralnel.m4a`],
-      [29, `${CDN_BASE_URL}/firmanent.m4a`],
+      [0, `${AUDIO_CDN_BASE_URL}/letnev.m4a`],
+      [1, `${AUDIO_CDN_BASE_URL}/sol.m4a`],
+      [2, `${AUDIO_CDN_BASE_URL}/jolnar.m4a`],
+      [3, `${AUDIO_CDN_BASE_URL}/l1z1x.m4a`],
+      [4, `${AUDIO_CDN_BASE_URL}/xxcha.m4a`],
+      [5, `${AUDIO_CDN_BASE_URL}/yin.m4a`],
+      [6, `${AUDIO_CDN_BASE_URL}/yssaril.m4a`],
+      [7, `${AUDIO_CDN_BASE_URL}/hacan.m4a`],
+      [8, `${AUDIO_CDN_BASE_URL}/saar.m4a`],
+      [9, `${AUDIO_CDN_BASE_URL}/naalu.m4a`],
+      [10, `${AUDIO_CDN_BASE_URL}/sardakk.m4a`],
+      [11, `${AUDIO_CDN_BASE_URL}/winnu.m4a`],
+      [12, `${AUDIO_CDN_BASE_URL}/arborec.m4a`],
+      [13, `${AUDIO_CDN_BASE_URL}/muaat.m4a`],
+      [14, `${AUDIO_CDN_BASE_URL}/creuss.m4a`],
+      [15, `${AUDIO_CDN_BASE_URL}/mentak.m4a`],
+      [16, `${AUDIO_CDN_BASE_URL}/nekro.m4a`],
+      [17, `${AUDIO_CDN_BASE_URL}/argent.m4a`],
+      [18, `${AUDIO_CDN_BASE_URL}/empyrean.m4a`],
+      [19, `${AUDIO_CDN_BASE_URL}/mahact.m4a`],
+      [20, `${AUDIO_CDN_BASE_URL}/naaz.m4a`],
+      [21, `${AUDIO_CDN_BASE_URL}/nomad.m4a`],
+      [22, `${AUDIO_CDN_BASE_URL}/titans.m4a`],
+      [23, `${AUDIO_CDN_BASE_URL}/vuilrath.m4a`],
+      [24, `${AUDIO_CDN_BASE_URL}/keleres.m4a`],
+      [25, `${AUDIO_CDN_BASE_URL}/bastion.m4a`],
+      [26, `${AUDIO_CDN_BASE_URL}/deepwrought.m4a`],
+      [27, `${AUDIO_CDN_BASE_URL}/crimson.m4a`],
+      [28, `${AUDIO_CDN_BASE_URL}/ralnel.m4a`],
+      [29, `${AUDIO_CDN_BASE_URL}/firmament.m4a`],
     ])
 
     this.initialize()
@@ -57,7 +62,6 @@ class AudioManager {
 
     if (isMobileDevice) {
       this.isMobile = true
-      console.log('Mobile device detected - showing enable button')
       this.createAudioEnableButton()
     } else {
       const testAudio = new Audio()
@@ -70,10 +74,8 @@ class AudioManager {
         testAudio.src = ''
         this.audioEnabled = true
         this.isMobile = false
-        console.log('Audio autoplay supported - no button needed')
       } catch (e) {
         this.isMobile = true
-        console.log('Audio autoplay blocked - showing enable button')
         this.createAudioEnableButton()
       }
     }
@@ -103,7 +105,6 @@ class AudioManager {
   async enableAudio() {
     this.audioEnabled = true
     this.userInteracted = true
-    console.log('Audio enabled by user interaction')
 
     if (!this.streamingButton) {
       this.createStreamingButton()
@@ -123,7 +124,6 @@ class AudioManager {
         this.currentAudio.volume = 0
       }
       button.textContent = 'Enable Audio'
-      console.log('Audio disabled by user')
     } else {
       await this.enableAudio()
       button.textContent = 'Disable Audio'
@@ -184,7 +184,6 @@ class AudioManager {
         this.currentAudio.volume = 0
         this.currentAudio = null
       }
-      console.log('Music streaming disabled')
 
     } else {
       if (!this.audioEnabled) {
@@ -199,7 +198,6 @@ class AudioManager {
       if (skipButton) skipButton.style.display = 'inline-block'
 
       await this.playRandomMusic()
-      console.log('Music streaming enabled')
     }
   }
 
@@ -234,13 +232,10 @@ class AudioManager {
       this.recentlyPlayedHistory.shift()
     }
 
-    console.log(`Streaming: Playing faction ${randomSlide} (history: ${this.recentlyPlayedHistory.length})`)
-
     try {
       await this.loadAudioForSlide(randomSlide)
     } catch (e) {
-      console.error(`Could not load audio for streaming:`, e)
-      setTimeout(() => this.playRandomMusic(), 1000)
+      setTimeout(() => this.playRandomMusic(), RETRY_DELAY_MS)
       return
     }
 
@@ -252,12 +247,12 @@ class AudioManager {
 
     const newAudio = this.audioElements.get(randomIndex)
     if (!newAudio) {
-      setTimeout(() => this.playRandomMusic(), 1000)
+      setTimeout(() => this.playRandomMusic(), RETRY_DELAY_MS)
       return
     }
 
     newAudio.loop = false
-    newAudio.volume = 0.3
+    newAudio.volume = PLAYBACK_VOLUME
     newAudio.currentTime = 0
 
     newAudio.onended = () => {
@@ -270,8 +265,7 @@ class AudioManager {
       await newAudio.play()
       this.currentAudio = newAudio
     } catch (e) {
-      console.warn('Streaming audio play failed:', e)
-      setTimeout(() => this.playRandomMusic(), 1000)
+      setTimeout(() => this.playRandomMusic(), RETRY_DELAY_MS)
     }
   }
 
@@ -283,26 +277,20 @@ class AudioManager {
     const audioIndex = slideIndex - 1
 
     if (this.failedAudioFiles.has(audioIndex)) {
-      console.warn(`Audio ${audioIndex} previously failed to load`)
       return Promise.reject(new Error('Audio file previously failed'))
     }
 
     if (this.audioElements.has(audioIndex)) {
-      console.log(`Audio ${audioIndex} already loaded`)
       return Promise.resolve()
     }
 
     if (this.loadingAudio.has(audioIndex)) {
-      console.log('Audio ${audioIndex} already loading, reusing promise')
       return this.loadingAudio.get(audioIndex)
     }
 
     if (!this.audioFiles.has(audioIndex)) {
-      console.warn(`No audio file defined for slide ${slideIndex}`)
       return Promise.reject(new Error('No audio file defined'))
     }
-
-    console.log(`Loading audio for slide ${slideIndex}...`)
 
     const loadPromise = new Promise((resolve, reject) => {
       const audio = document.createElement('audio')
@@ -311,7 +299,6 @@ class AudioManager {
       audio.preload = 'auto'
 
       const handleLoaded = () => {
-        console.log(`Audio ${audioIndex} loaded successfully`)
         this.audioElements.set(audioIndex, audio)
         this.loadingAudio.delete(audioIndex)
         audio.removeEventListener('canplaythrough', handleLoaded)
@@ -319,8 +306,7 @@ class AudioManager {
         resolve()
       }
 
-      const handleError = (e) => {
-        console.error(`Failed to load audio ${audioIndex}:`, e)
+      const handleError = () => {
         this.failedAudioFiles.add(audioIndex)
         this.loadingAudio.delete(audioIndex)
         audio.removeEventListener('canplaythrough', handleLoaded)
@@ -334,9 +320,7 @@ class AudioManager {
       audio.addEventListener('ended', () => {
         if (audio === this.currentAudio) {
           audio.currentTime = 0
-          audio.play().catch(e => {
-            console.error(`Failed to loop audio-${audioIndex}:`, e)
-          })
+          audio.play().catch(() => {})
         }
       })
 
@@ -355,13 +339,11 @@ class AudioManager {
     const totalSlides = this.audioFiles.size + 1
 
     if (currentSlideIndex < totalSlides - 1) {
-      this.loadAudioForSlide(currentSlideIndex + 1)
-        .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex + 1}`))
+      this.loadAudioForSlide(currentSlideIndex + 1).catch(() => {})
     }
 
     if (currentSlideIndex > 1) {
-      this.loadAudioForSlide(currentSlideIndex - 1)
-        .catch(e => console.warn(`Preload failed for slide ${currentSlideIndex - 1}`))
+      this.loadAudioForSlide(currentSlideIndex - 1).catch(() => {})
     }
   }
 
@@ -372,10 +354,7 @@ class AudioManager {
 
     if (!this.audioEnabled) return
 
-    if (this.isMobile && !this.userInteracted) {
-      console.log('Waiting for user interaction on mobile before playing audio')
-      return
-    }
+    if (this.isMobile && !this.userInteracted) return
 
     if (slideIndex === 0) {
       if (this.currentAudio) {
@@ -389,7 +368,6 @@ class AudioManager {
     const audioIndex = slideIndex - 1
 
     if (this.failedAudioFiles.has(audioIndex)) {
-      console.warn(`Skipping playback for slide ${audioIndex} - audio file failed to load`)
       if (this.currentAudio) {
         this.currentAudio.pause()
         this.currentAudio.volume = 0
@@ -401,7 +379,6 @@ class AudioManager {
     try {
       await this.loadAudioForSlide(slideIndex)
     } catch (e) {
-      console.error(`Could not load audio for slide ${slideIndex}:`, e)
       return
     }
 
@@ -412,24 +389,20 @@ class AudioManager {
     })
 
     const newAudio = this.audioElements.get(audioIndex)
-    if (!newAudio) {
-      console.warn(`Audio element not found for slide ${slideIndex}`)
-      return
-    }
+    if (!newAudio) return
 
-    newAudio.volume = 0.3
-    newAudio.currentTime = Math.min(newAudio.duration * 0.3, newAudio.duration)
+    newAudio.volume = PLAYBACK_VOLUME
+    newAudio.currentTime = Math.min(newAudio.duration * SKIP_INTRO_RATIO, newAudio.duration)
     try {
       await newAudio.play()
       this.currentAudio = newAudio
-      console.log(`Playing audio for slide ${slideIndex}`)
     } catch (e) {
-      console.warn('Audio play failed:', e)
+      // Autoplay blocked or audio unavailable — non-critical
     }
 
     setTimeout(() => {
       this.preloadAdjacentSlides(slideIndex)
-    }, 1000)
+    }, PRELOAD_DELAY_MS)
   }
 
   getState() {

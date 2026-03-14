@@ -51,7 +51,7 @@ const CONSTANTS = {
     'r_mentak.jpg', 'r_nekro.jpg', 'r_argent.jpg', 'r_empyrean.jpg', 'r_mahact.jpg',
     'r_naazrokha.jpg', 'r_nomad.jpg', 'r_ul.jpg', 'r_vuilraith.jpg', 'r_keleres.jpg',
     'r_bastion.jpg', 'r_deepwrought.jpg', 'r_rebellion.jpg', 'r_ralnel.jpg',
-    'r_firmanent.jpg'
+    'r_firmament.jpg'
   ],
 
   DEBOUNCE_DELAY: 150,
@@ -148,10 +148,6 @@ function preloadAdjacentImages(slideIndex) {
 /* ============================================
    SLIDE MANAGEMENT
    ============================================ */
-function initializeIndicators() {
-  // Indicators element removed from HTML; skip initialization
-}
-
 function updateSlideDisplay() {
   slides.forEach(slide => slide.classList.remove('active'))
   slides[currentSlide].classList.add('active')
@@ -205,7 +201,6 @@ function goToSlide(slideIndex) {
    ============================================ */
 function setupExpansionSelector() {
   const expansionBars = document.querySelectorAll('.expansion-bar')
-  const labels = document.querySelectorAll('.expansion-label')
 
   function updateLabel(expansion, isActive) {
     const label = document.querySelector(`.expansion-label.${expansion}`)
@@ -230,7 +225,6 @@ function setupExpansionSelector() {
         enabledExpansions.delete(expansion)
       }
 
-      console.log('Enabled expansions:', Array.from(enabledExpansions))
     })
 
     bar.addEventListener('keydown', (e) => {
@@ -516,8 +510,8 @@ async function loadLoreFile(factionIndex) {
  */
 function showLoreLoading(loreBody) {
   loreBody.innerHTML = `
-    <div style="text-align: center; padding: 3rem;">
-      <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+    <div class="lore-state">
+      <div class="lore-state-icon">⏳</div>
       <p>Loading lore...</p>
     </div>
   `
@@ -530,8 +524,8 @@ function showLoreLoading(loreBody) {
  */
 function showLoreError(loreBody, message) {
   loreBody.innerHTML = `
-    <div style="text-align: center; padding: 3rem;">
-      <div style="font-size: 2rem; margin-bottom: 1rem;"></div>
+    <div class="lore-state">
+      <div class="lore-state-icon"></div>
       <p>${escapeHtml(message)}</p>
     </div>
   `
@@ -610,14 +604,10 @@ function escapeHtml(text) {
    INITIALIZATION
    ============================================ */
 function init() {
-  if (initialized) {
-    console.log('Already initialized, skipping')
-    return
-  }
+  if (initialized) return
   initialized = true
 
   safeExecute(() => {
-    initializeIndicators()
     updateSlideDisplay()
     populateFactionDropdown()
     setupDifficultySelector()
@@ -625,9 +615,6 @@ function init() {
     setupEventListeners()
 
     preloadAdjacentImages(0)
-
-    console.log('Initialization complete')
-    console.log('Audio Manager State:', audioManager.getState())
   }, 'Initialization')
 }
 
