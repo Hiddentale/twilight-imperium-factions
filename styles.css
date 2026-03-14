@@ -200,7 +200,7 @@ body {
     font-size: var(--text-sm);
     font-weight: 600;
     transition: all 0.3s ease;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     box-shadow: none;
     text-align: center;
     text-transform: uppercase;
@@ -224,8 +224,7 @@ body {
     font-size: var(--text-sm);
     font-weight: 600;
     transition: all 0.3s ease;
-    font-family: var(--font-heading);
-    text-transform: uppercase;
+    font-family: var(--font-body);
     letter-spacing: 0.5px;
     box-shadow: none;
 }
@@ -355,8 +354,7 @@ body {
     font-size: var(--text-sm);
     font-weight: 600;
     transition: all 0.3s ease;
-    font-family: var(--font-heading);
-    text-transform: uppercase;
+    font-family: var(--font-body);
     letter-spacing: 0.5px;
     box-shadow: none;
 }
@@ -381,7 +379,7 @@ body {
     font-size: 13px;
     cursor: pointer;
     box-shadow: none;
-    font-family: 'Orbitron', monospace;
+    font-family: var(--font-body);
     transition: all 0.3s ease;
     white-space: nowrap;
 }
@@ -508,7 +506,7 @@ body {
     font-size: var(--text-base);
     color: var(--accent-primary);
     font-weight: 600;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
