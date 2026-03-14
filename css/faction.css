@@ -186,36 +186,26 @@
 }
 
 .difficulty-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-xs);
+    font-size: var(--text-lg);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     margin-bottom: var(--space-4);
-    align-self: flex-start;
-    width: fit-content;
 }
 
 .beginner {
-    background: var(--beginner);
-    color: white;
+    color: var(--beginner);
 }
 
 .intermediate {
-    background: var(--intermediate);
-    color: white;
+    color: var(--intermediate);
 }
 
 .advanced {
-    background: var(--advanced);
-    color: white;
+    color: var(--advanced);
 }
 
 .expert {
-    background: var(--expert);
     color: white;
 }
 
